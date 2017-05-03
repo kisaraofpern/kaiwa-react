@@ -34,9 +34,11 @@ class NavBar extends Component {
                         <li className="sign-in">
                         Sign In
                         </li>
-                        <li>
+                        <li className="searchBar">
                           <SearchBar
                             query = {this.props.query}
+                            onChange = {this.props.onSearchQuery}
+                            handleSearchButton = {this.props.handleSearchButton}
                           />
                         </li>
                       </ul>

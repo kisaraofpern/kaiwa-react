@@ -56,13 +56,25 @@ h6 {
 ul.align-right {
   float: right;
 
-  li {
-    background: $warm-blue;
-    border: 1px solid $dark-blue;
-    border-radius: 5px;
-    box-shadow: 2px 2px 1px $dark-blue;
+  li.sign-up,
+  li.sign-in {
+    // background: $warm-blue;
+    // border: 1px solid $dark-blue;
+    // border-radius: 5px;
+    // box-shadow: 2px 2px 1px $dark-blue;
+    // font-weight: 800;
     margin-left: 27.5px;
     margin-top: 16.5px;
     padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 3px solid $warm-blue;
+    }
+  }
+
+  li.searchBar {
+    margin-top: 23px;
+    cursor: pointer;
   }
 }
