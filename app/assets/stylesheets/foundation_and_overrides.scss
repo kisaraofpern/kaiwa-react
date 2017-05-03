@@ -51,3 +51,31 @@
 //
 // @include motion-ui-transitions;
 // @include motion-ui-animations;
+$transparent: rgba(0, 0, 0, 0);
+$dark-blue:   #345cab;
+$light-blue:  #a5d9f6;
+
+.nav-bar,
+.top-bar ul {
+  background-color: $light-blue;
+}
+
+.top-bar-left,
+.top-bar-right {
+  position: relative;
+}
+
+.top-bar-right {
+  margin-top: 0.75em;
+}
+
+.menu-text {
+  color: $dark-blue;
+  font-size: 2em;
+  padding: 0;
+}
+
+.input-group,
+.input-group-rounded {
+  margin: 0;
+}

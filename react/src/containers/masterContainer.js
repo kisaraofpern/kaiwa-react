@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import AnimeShowContainer from '../animeShowContainer';
+import AnimeShowContainer from './animeShowContainer';
+import NavBar from '../components/navBar'
 
 class MasterContainer extends Component {
   constructor (props) {
@@ -9,15 +10,12 @@ class MasterContainer extends Component {
     };
   }
 
-
   render() {
-
-
-
-
-
-
-
-    
+    return(
+      <NavBar
+        query = {this.state.query}
+      />
+    )
   }
 }
+export default MasterContainer;
