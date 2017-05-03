@@ -31,11 +31,16 @@ class MasterContainer extends Component {
 
   render() {
     return(
-      <NavBar
-        query = {this.state.query}
-        onSearchQuery = {this.onSearchQuery}
-        handleSearchButton = {this.handleSearchButton}
-      />
+      <div>
+        <NavBar
+          query = {this.state.query}
+          onSearchQuery = {this.onSearchQuery}
+          handleSearchButton = {this.handleSearchButton}
+        />
+        <br />
+        <br />
+        <AnimeShowContainer />
+      </div>
     )
   }
 }
