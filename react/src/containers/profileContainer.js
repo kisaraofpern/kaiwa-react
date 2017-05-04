@@ -24,7 +24,7 @@ class ProfileContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="row profile-box">
         <BioPanel
           currentUser = {this.state.currentUser}
         />

@@ -16,10 +16,12 @@ gem 'coffee-rails', '~> 4.2'
 gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
-gem 'dotenv'
+gem 'dotenv-rails'
 gem 'crack'
 gem 'devise'
 gem 'carrierwave', '~> 1.0'
+gem "mini_magick"
+gem "fog"
 
 group :development, :test do
   gem 'byebug', platform: :mri

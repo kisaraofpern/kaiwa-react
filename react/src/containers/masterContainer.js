@@ -88,6 +88,13 @@ class MasterContainer extends Component {
   }
 
   render() {
+    let childrenWithProps = React.cloneElement(
+      this.props.children,
+      {
+        filtered_data: this.state.filtered_data,
+        current_user: this.state.current_user
+      });
+
     return(
       <div>
         <NavBar
@@ -98,10 +105,7 @@ class MasterContainer extends Component {
         />
         <br />
         <br />
-        <GalleryContainer
-          filtered_data = {this.state.filtered_data}
-        />
-        {this.props.children}
+        {childrenWithProps}
       </div>
     )
   }
