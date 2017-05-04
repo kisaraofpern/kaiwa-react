@@ -1,19 +1,56 @@
 import React, { Component } from 'react';
-import AnimeShowContainer from './animeShowContainer';
 import NavBar from '../components/navBar';
+import GalleryContainer from './galleryContainer';
 
 class MasterContainer extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      query: ''
+      query: '',
+      filtered_data: []
     };
     this.onSearchQuery = this.onSearchQuery.bind(this);
     this.handleSearchButton = this.handleSearchButton.bind(this);
+    this.getSearchResults = this.getSearchResults.bind(this);
   }
 
+  componentDidMount() {
+    let query = JSON.stringify({ query: "browse/anime" });
+    fetch("/api/v1/anilistapi.json", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json",
+                 "Accept": "application/json" },
+      body: query
+    })
+    .then(response => response.json())
+    .then(responseData => {
+      debugger;
+      this.setState({ filtered_data: responseData });
+    });
+  }
+
+
   onSearchQuery(event) {
-    this.setState( { query: event.target.value });
+    this.setState({ query: event.target.value });
+    if (this.state.query !== "") {
+      this.getSearchResults();
+    }
+  }
+
+  getSearchResults() {
+    let query = JSON.stringify({ query: "anime/search/"+this.state.query });
+    fetch("/api/v1/anilistapi.json", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json",
+                 "Accept": "application/json" },
+      body: query
+    })
+    .then(response => response.json())
+    .then(responseData => {
+      this.setState({ filtered_data: responseData });
+    });
   }
 
   handleSearchButton(event) {
@@ -39,7 +76,9 @@ class MasterContainer extends Component {
         />
         <br />
         <br />
-        <AnimeShowContainer />
+        <GalleryContainer
+          filtered_data = {this.state.filtered_data}
+        />
       </div>
     )
   }

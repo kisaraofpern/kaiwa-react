@@ -1,0 +1,59 @@
+$white:         #ffffff;
+$dark-blue:     #345cab;
+$warm-blue:     #648eca;
+$warm-blue-translucent: rgba(165, 217, 246, 0.36);
+$light-blue:    #a5d9f6;
+$alert-red:     #ca6478;
+$light-purple:  rgba(102, 0, 204, 0.25);
+$light-green:   rgba(0, 204, 51, 0.25);
+$light-yellow:  rgba(204, 153, 0, 0.25);
+$light-red:     rgba(204, 0, 0, 0.25);
+$light-grey:    rgba(0, 0, 0, 0.25);
+
+img.modal-button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: $dark-blue;
+  height: 75%;
+  width: 75%;
+}
+
+ul.menu anime-title-menu-list {
+  float: right;
+  margin-bottom: 10px;
+}
+
+li.anime-tile-menu {
+  border-radius: 5px;
+  font-size: 0.5em;
+  padding: 5px;
+  text-align: center;
+  width: 70px;
+}
+
+li.anime-tile-menu.to-watch {
+  background-color: $light-purple;
+}
+
+li.anime-tile-menu.loved {
+  background-color: $light-green;
+}
+
+li.anime-tile-menu.meh {
+  background-color: $light-yellow;
+}
+
+li.anime-tile-menu.hated {
+  background-color: $light-red;
+}
+
+li.anime-tile-menu.close {
+  background-color: $light-grey;
+}
+
+ul.menu.anime-tile-menu-list {
+  float: right;
+  margin-bottom: 10px;
+  margin-top: -10px;
+}

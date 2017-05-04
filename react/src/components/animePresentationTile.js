@@ -53,12 +53,7 @@ class AnimePresentationTile extends Component {
   }
 
   render() {
-    let animeTileComponent;
-
-    if (this.props.animeObject === null) {
-      animeTileComponent = <div>Loading...</div>
-    } else {
-      animeTileComponent =
+    let animeTileComponent = (
       <div>
         <button onClick={this.openModal}>
           <img className="modal-button" src={this.props.animeObject.image_url_lge} />
@@ -136,16 +131,16 @@ class AnimePresentationTile extends Component {
               <strong>Title (Japanese): </strong>{this.props.animeObject.title_japanese}<br />
               <strong>Title (Romaji): </strong>{this.props.animeObject.title_romaji}<br />
               <strong>Title (English): </strong>{this.props.animeObject.title_english}<br />
-              <strong>Description: </strong>{this.props.animeObject.description}<br />
+              <strong>Description: </strong>{this.props.animeObject.description || <em>(not available)</em>}<br />
               <strong>Genres: </strong>{this.props.animeObject.genres.join(", ")}<br />
             </p>
           </div>
         </Modal>
       </div>
-      }
+    )
 
     return (
-      <div className="anime-tile-container">
+      <div className="column column-block">
         {animeTileComponent}
       </div>
     )

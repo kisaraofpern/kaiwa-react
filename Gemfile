@@ -17,6 +17,7 @@ gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'dotenv'
+gem 'crack'
 
 group :development, :test do
   gem 'byebug', platform: :mri
