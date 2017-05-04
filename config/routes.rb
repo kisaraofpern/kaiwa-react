@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  # devise_for :users
+  devise_for :users
+  resources :users, only: [:show]
 
   namespace :api do
     namespace :v1 do

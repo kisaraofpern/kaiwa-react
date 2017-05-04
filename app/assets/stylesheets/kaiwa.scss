@@ -3,6 +3,7 @@ $dark-blue:   #345cab;
 $warm-blue:   #648eca;
 $light-blue:  #a5d9f6;
 $alert-red:   #ca6478;
+$link-blue:   #1779ba;
 $transparent: rgba(0, 0, 0, 0);
 
 @import url('https://fonts.googleapis.com/css?family=Asar|Raleway|Italianno');
@@ -61,7 +62,9 @@ ul.align-right {
   float: right;
 
   li.sign-up,
-  li.sign-in {
+  li.sign-in,
+  li.user-profile,
+  li.sign-out {
     // background: $warm-blue;
     // border: 1px solid $dark-blue;
     // border-radius: 5px;
@@ -77,6 +80,14 @@ ul.align-right {
     }
   }
 
+  li.sign-out input[type=submit] {
+    background-color: $light-blue;
+    border:0 none;
+    color: $link-blue;
+    cursor:pointer;
+    font-family: "Raleway", sans-serif;
+    padding:10px;
+  }
   li.searchBar {
     margin-top: 23px;
     cursor: pointer;

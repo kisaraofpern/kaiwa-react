@@ -19,6 +19,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'dotenv'
 gem 'crack'
 gem 'devise'
+gem 'carrierwave', '~> 1.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri

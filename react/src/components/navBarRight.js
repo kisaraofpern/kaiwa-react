@@ -11,16 +11,16 @@ class NavBarRight extends Component {
     let userSessionOptions;
 
     if (this.props.current_user) {
-      let userPath = `/users/:${this.props.current_user.id}`;
+      let userPath = `/users/${this.props.current_user.id}`;
       userSessionOptions = (
         <ul className="menu align-right">
-          <li className="user-profile">
-            <a href={userPath}>Signed In As {current_user.username}</a>
-          </li>
           <li className="sign-out">
             <form action="/users/sign_out" method="delete">
               <input type="submit" value="Sign Out" />
             </form>
+          </li>
+          <li className="user-profile">
+          <a href={userPath}>Signed In As <strong>{this.props.current_user.username}</strong></a>
           </li>
           <li className="searchBar">
             <SearchBar

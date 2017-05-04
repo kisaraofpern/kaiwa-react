@@ -19,14 +19,16 @@ class MasterContainer extends Component {
 
   componentDidMount() {
     this.current_user();
-    this.fillGallery();
+    let currentLocation = this.props.location.pathname;
+    if (currentLocation === "/") {
+      this.fillGallery();
+    }
   }
 
   current_user() {
     fetch("/api/v1/userapi", { credentials: 'same-origin' })
     .then(response => response.json())
     .then(responseData => {
-      debugger;
       this.setState({ current_user: responseData });
     });
   }
@@ -99,6 +101,7 @@ class MasterContainer extends Component {
         <GalleryContainer
           filtered_data = {this.state.filtered_data}
         />
+        {this.props.children}
       </div>
     )
   }
