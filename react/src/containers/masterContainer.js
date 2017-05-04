@@ -6,17 +6,29 @@ class MasterContainer extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      query: '',
-      filtered_data: []
+      current_user: null,
+      filtered_data: [],
+      query: ''
     };
     this.onSearchQuery = this.onSearchQuery.bind(this);
     this.handleSearchButton = this.handleSearchButton.bind(this);
     this.getSearchResults = this.getSearchResults.bind(this);
     this.fillGallery = this.fillGallery.bind(this);
+    this.current_user = this.current_user.bind(this);
   }
 
   componentDidMount() {
+    this.current_user();
     this.fillGallery();
+  }
+
+  current_user() {
+    fetch("/api/v1/userapi", { credentials: 'same-origin' })
+    .then(response => response.json())
+    .then(responseData => {
+      debugger;
+      this.setState({ current_user: responseData });
+    });
   }
 
   fillGallery() {
@@ -80,6 +92,7 @@ class MasterContainer extends Component {
           query = {this.state.query}
           onSearchQuery = {this.onSearchQuery}
           handleSearchButton = {this.handleSearchButton}
+          current_user = {this.state.current_user}
         />
         <br />
         <br />

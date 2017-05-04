@@ -32,6 +32,7 @@ class NavBar extends Component {
                         query = {this.props.query}
                         onChange = {this.props.onSearchQuery}
                         handleSearchButton = {this.props.handleSearchButton}
+                        current_user = {this.props.current_user}
                       />
                     </div>
                   </div>
