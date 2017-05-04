@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router';
 import { StickyContainer, Sticky } from 'react-sticky';
 import SearchBar from './SearchBar';
+import NavBarRight from './NavBarRight';
 
 class NavBar extends Component {
   constructor (props) {
@@ -27,21 +28,11 @@ class NavBar extends Component {
                           </Link>
                         </li>
                       </ul>
-                      <ul className="menu align-right">
-                        <li className="sign-up">
-                          <a href="/users/sign_up">Sign Up</a>
-                        </li>
-                        <li className="sign-in">
-                          <a href="/users/sign_in">Sign In</a>
-                        </li>
-                        <li className="searchBar">
-                          <SearchBar
-                            query = {this.props.query}
-                            onChange = {this.props.onSearchQuery}
-                            handleSearchButton = {this.props.handleSearchButton}
-                          />
-                        </li>
-                      </ul>
+                      <NavBarRight
+                        query = {this.props.query}
+                        onChange = {this.props.onSearchQuery}
+                        handleSearchButton = {this.props.handleSearchButton}
+                      />
                     </div>
                   </div>
                 </div>

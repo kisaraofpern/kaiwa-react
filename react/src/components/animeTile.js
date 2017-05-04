@@ -29,7 +29,7 @@ const customStyles = {
   }
 };
 
-class AnimePresentationTile extends Component {
+class AnimeTile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -149,4 +149,4 @@ class AnimePresentationTile extends Component {
 
 }
 
-export default AnimePresentationTile
+export default AnimeTile
