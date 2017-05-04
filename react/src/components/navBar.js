@@ -29,10 +29,10 @@ class NavBar extends Component {
                       </ul>
                       <ul className="menu align-right">
                         <li className="sign-up">
-                        Sign Up
+                          <a href="/users/sign_up">Sign Up</a>
                         </li>
                         <li className="sign-in">
-                        Sign In
+                          <a href="/users/sign_in">Sign In</a>
                         </li>
                         <li className="searchBar">
                           <SearchBar
