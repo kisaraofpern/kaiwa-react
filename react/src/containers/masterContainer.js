@@ -66,6 +66,8 @@ class MasterContainer extends Component {
       let firstSlice = searchBar.className.slice(0, index-1);
       let lastSlice = searchBar.className.slice(index+13, -1);
       searchBar.className = firstSlice + lastSlice;
+      this.setState({ query: "" });
+      this.fillGallery();
     } else {
       searchBar.className += " expand-search";
     }
