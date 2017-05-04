@@ -1,0 +1,84 @@
+$white:       #ffffff;
+$dark-blue:   #345cab;
+$warm-blue:   #648eca;
+$light-blue:  #a5d9f6;
+$alert-red:   #ca6478;
+$transparent: rgba(0, 0, 0, 0);
+
+@import url('https://fonts.googleapis.com/css?family=Asar|Raleway|Italianno');
+
+body {
+  background: url("vector_background.jpg") no-repeat center center fixed;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+
+  color: $dark-blue;
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+
+}
+
+.gallery-box {
+  margin-top: 60px;
+}
+
+#nav-bar {
+  position: fixed;
+  background-color: $light-blue;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Asar", serif;
+}
+
+.search-field {
+  border: 0;
+  border-radius: 50px;
+  height: 40px;
+  margin-right: 0;
+  padding: 0;
+  text-indent: 10px;
+  transition: width 1s ease;
+  width: 0;
+}
+
+.expand-search {
+  width: 15em;
+}
+
+.align-left {
+  float: left;
+}
+
+ul.align-right {
+  float: right;
+
+  li.sign-up,
+  li.sign-in {
+    // background: $warm-blue;
+    // border: 1px solid $dark-blue;
+    // border-radius: 5px;
+    // box-shadow: 2px 2px 1px $dark-blue;
+    // font-weight: 800;
+    margin-left: 27.5px;
+    margin-top: 16.5px;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 3px solid $warm-blue;
+    }
+  }
+
+  li.searchBar {
+    margin-top: 23px;
+    cursor: pointer;
+  }
+}
