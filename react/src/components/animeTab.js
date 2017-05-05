@@ -38,7 +38,7 @@ class AnimeTab extends Component {
       return (
         < AnimePanel
           key = {animeObject.id}
-          anim  eId = {animeObject.id}
+          animeId = {animeObject.id}
           animeObject = {animeObject}
           currentUser = {this.props.currentUser}
           handleAnimeTag = {this.props.handleAnimeTag}

@@ -56,8 +56,13 @@ $dark-blue:   #345cab;
 $light-blue:  #a5d9f6;
 
 .nav-bar,
+.top-bar,
 .top-bar ul {
   background-color: $light-blue;
+}
+
+.top-bar {
+  margin-left: 30px
 }
 
 .top-bar-left,

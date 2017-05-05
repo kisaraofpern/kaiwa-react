@@ -15,9 +15,7 @@ class NavBarRight extends Component {
       userSessionOptions = (
         <ul className="menu align-right">
           <li className="sign-out">
-            <form action="/users/sign_out" method="delete">
-              <input type="submit" value="Sign Out" />
-            </form>
+            <a href="/sign_out">Sign Out</a>
           </li>
           <li className="user-profile">
           <Link to={userPath}>Signed In As <strong>{this.props.current_user.username}</strong></Link>

@@ -1,26 +1,43 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true %>
+<div data-sticky-container>
+  <div class="sticky rails-menu row" data-sticky data-options="anchor: page; marginTop: 0; stickyOn: small;">
+    <nav class="top-bar">
+      <div class="top-bar-left">
+        <ul class="menu">
+          <li class="menu-text">
+            <span style="font: 400 2.0em/100% 'Italianno', Helvetica, Sans-serif;">
+              <%= link_to "Kaiwa", root_path %>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+<div class="form-box">
+  <h2>Log In</h2>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="field row">
+      <%= f.text_field :username, autofocus: true, placeholder: "username" %>
+      <%= f.password_field :password, autocomplete: "off", placeholder: "password" %>
     </div>
-  <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end -%>
 
-<%= render "devise/shared/links" %>
+    <div class="actions">
+      <%= f.submit "Log in" %>
+    </div>
+
+    <br />
+
+    <div class="bumper">
+      <strong><%= render "devise/shared/links" %></strong>
+    </div>
+  <% end %>
+</div>

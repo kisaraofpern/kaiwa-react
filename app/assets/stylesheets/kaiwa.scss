@@ -14,7 +14,6 @@ body {
   color: $dark-blue;
   font-family: "Raleway", sans-serif;
   margin: 0;
-
 }
 
 .gallery-box,
@@ -22,7 +21,12 @@ body {
   margin-top: 60px;
 }
 
-#nav-bar {
+.rails-menu {
+  height: 86px;
+  background-color: $light-blue;
+}
+
+.nav-bar {
   position: fixed;
   background-color: $light-blue;
 }
@@ -53,6 +57,10 @@ h6 {
 
 .align-left {
   float: left;
+}
+
+ul.menu {
+  margin-top: 3px;
 }
 
 ul.align-right {
