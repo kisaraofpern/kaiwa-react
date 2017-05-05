@@ -12,7 +12,7 @@ class CreateAnimetags < ActiveRecord::Migration[5.0]
       #   3. Hated It!
 
       t.belongs_to :user
-      t.timestamps null:false
+      t.timestamps null: false
     end
   end
 end

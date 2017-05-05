@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import { StickyContainer, Sticky } from 'react-sticky';
-import SearchBar from './SearchBar';
-import NavBarRight from './NavBarRight';
+import NavBarRight from './navBarRight';
 
 class NavBar extends Component {
   constructor (props) {

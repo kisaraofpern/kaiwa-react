@@ -74,7 +74,6 @@ class AnimePanel extends Component {
   }
 
   render() {
-    debugger;
     let toWatchButton = `anime-tile-menu to-watch ${this.state.toWatch}`;
     let lovedItButton = `anime-tile-menu loved ${this.state.lovedIt}`;
     let mehButton     = `anime-tile-menu meh ${this.state.meh}`;
