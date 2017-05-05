@@ -1,24 +1,8 @@
 import React, { Component } from 'react';
 
-class BioPanel extends Component {
+class AnimePanel extends Component {
   constructor(props) {
     super(props);
-    this.formatDate = this.formatDate.bind(this);
-  }
-
-  formatDate(date) {
-    let monthNames = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ];
-
-    let day = date.getDate();
-    let monthIndex = date.getMonth();
-    let year = date.getFullYear();
-
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
   }
 
   render() {
@@ -32,7 +16,6 @@ class BioPanel extends Component {
       full_date = this.formatDate(created_at);
     }
 
-
     return (
       <div className="profile-box row">
         <div className="columns small-12 medium-2">
@@ -41,8 +24,8 @@ class BioPanel extends Component {
             <img src={avatar} />
           </div>
           <div className="columns small-12 medium 6">
-            <p><strong>Email:</strong> {email}</p>
-            <p><strong>Created:</strong> {full_date}</p>
+            <p><strong>Email:</strong><br/> {email}</p>
+            <p><strong>Created:</strong><br /> {full_date}</p>
           </div>
         </div>
         <div className="columns small-12 medium-10">
@@ -52,4 +35,4 @@ class BioPanel extends Component {
   }
 }
 
-export default BioPanel;
+export default AnimePanel;

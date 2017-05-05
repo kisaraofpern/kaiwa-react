@@ -33,11 +33,19 @@ class AnimeTile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalOpen: false
+      isModalOpen: false,
+      toWatch: null,
+      lovedIt: null,
+      meh: null,
+      hatedIt: null,
     };
-
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.getTags = this.getTags.bind(this);
+    this.handleToWatch = this.handleToWatch.bind(this);
+    this.handleLovedIt = this.handleLovedIt.bind(this);
+    this.handleMeh = this.handleMeh.bind(this);
+    this.handleHatedIt = this.handleHatedIt.bind(this);
   }
 
   openModal() {
@@ -48,16 +56,117 @@ class AnimeTile extends Component {
     this.setState({ isModalOpen: false });
   }
 
+  getTags() {
+    let proto_uri="/api/v1/animetagsapi?";
+    proto_uri += `userid=${this.props.currentUser.id}&`;
+    proto_uri += `animeid=${this.props.animeObject.id}`;
+
+    let uri=encodeURI(proto_uri);
+    let myHeader = new Headers({
+      'Content-Type':'application/json'
+    });
+    fetch(uri, { credentials: 'same-origin' })
+    .then(response => response.json())
+    .then(responseData => {
+      let tagArray = responseData.map( (tagObject) => {
+        return tagObject.tag_id;
+      });
+      let newToWatch = tagArray.includes(0) ? "confirmed" : null;
+      let newLovedIt = tagArray.includes(1) ? "confirmed" : null;
+      let newMeh     = tagArray.includes(2) ? "confirmed" : null;
+      let newHatedIt = tagArray.includes(3) ? "confirmed" : null;
+      this.setState({
+        toWatch: newToWatch,
+        lovedIt: newLovedIt,
+        meh: newMeh,
+        hatedIt: newHatedIt
+       });
+    });
+  }
+
   componentWillMount() {
     Modal.setAppElement('body');
   }
 
+  componentDidMount() {
+    this.getTags();
+  }
+
+  handleToWatch() {
+    let id = this.props.animeObject.id;
+    let newToWatch = (this.state.toWatch === "confirmed") ? null : "confirmed";
+    this.props.handleAnimeTag(id, 0);
+    this.setState({ toWatch: newToWatch });
+  }
+
+  handleLovedIt() {
+    let id = this.props.animeObject.id;
+    let newLovedIt = (this.state.lovedIt === "confirmed") ? null : "confirmed";
+    this.props.handleAnimeTag(id, 1);
+    this.setState({ lovedIt: newLovedIt });
+  }
+
+  handleMeh() {
+    let id = this.props.animeObject.id;
+    let newMeh = (this.state.meh === "confirmed") ? null : "confirmed";
+    this.props.handleAnimeTag(id, 2);
+    this.setState({ meh: newMeh });
+  }
+
+  handleHatedIt() {
+    let id = this.props.animeObject.id;
+    let newHatedIt = (this.state.hatedIt === "confirmed") ? null : "confirmed";
+    this.props.handleAnimeTag(id, 3);
+    this.setState({ hatedIt: newHatedIt });
+  }
+
+
   render() {
+    let id = this.props.animeObject.id;
+    let toWatchButton = `anime-tile-menu to-watch ${this.state.toWatch}`;
+    let lovedItButton = `anime-tile-menu loved ${this.state.lovedIt}`;
+    let mehButton     = `anime-tile-menu meh ${this.state.meh}`;
+    let hatedItButton = `anime-tile-menu hated ${this.state.hatedIt}`;
+    let toWatchDot = `dot to-watch ${this.state.toWatch}`;
+    let lovedItDot = `dot loved ${this.state.lovedIt}`;
+    let mehDot = `dot meh ${this.state.meh}`;
+    let hatedItDot = `dot hated ${this.state.hatedIt}`;
+
     let animeTileComponent = (
       <div>
         <button onClick={this.openModal}>
           <img className="modal-button" src={this.props.animeObject.image_url_lge} />
         </button>
+        <ul className="menu anime-tile-menu-dots">
+          <li onClick={this.handleToWatch}>
+            <FontAwesome
+              className={toWatchDot}
+              size='2x'
+              name='flag'
+            />
+          </li>
+          <li onClick={this.handleLovedIt}>
+            <FontAwesome
+              className={lovedItDot}
+              size='2x'
+              name='smile-o'
+            />
+          </li>
+          <li onClick={this.handleMeh}>
+            <FontAwesome
+              className={mehDot}
+              size='2x'
+              name='meh-o'
+            />
+          </li>
+          <li onClick={this.handleHatedIt}>
+            <FontAwesome
+              className={hatedItDot}
+              size='2x'
+              name='frown-o'
+            />
+          </li>
+        </ul>
 
         <Modal
           isOpen={this.state.isModalOpen}
@@ -67,8 +176,8 @@ class AnimeTile extends Component {
         >
           <div>
             <ul className="menu anime-tile-menu-list">
-              <li className="anime-tile-menu to-watch">
-                <button className="to-watch">
+              <li className={toWatchButton}>
+                <button className="to-watch" onClick={this.handleToWatch}>
                   <FontAwesome
                     className='to-watch'
                     name='flag'
@@ -78,8 +187,8 @@ class AnimeTile extends Component {
                   To Watch
                 </button>
               </li>
-              <li className="anime-tile-menu loved">
-                <button className="loved">
+              <li className={lovedItButton}>
+                <button className="loved" onClick={this.handleLovedIt}>
                   <FontAwesome
                     name='smile-o'
                     size='3x'
@@ -88,8 +197,8 @@ class AnimeTile extends Component {
                   Loved It!
                 </button>
               </li>
-              <li className="anime-tile-menu meh">
-                <button>
+              <li className={mehButton}>
+                <button className="meh" onClick={this.handleMeh}>
                   <FontAwesome
                     className='meh'
                     name='meh-o'
@@ -99,8 +208,8 @@ class AnimeTile extends Component {
                   Meh.
                 </button>
               </li>
-              <li className="anime-tile-menu hated">
-                <button>
+              <li className={hatedItButton}>
+                <button className="hated" onClick={this.handleHatedIt}>
                   <FontAwesome
                   className='hated'
                   size='3x'

@@ -21,11 +21,11 @@ class NavBar extends Component {
                     <div className="menu">
                       <ul className="menu align-left">
                         <li id="logo">
-                          <Link to="/">
+                          <a href = "/">
                             <span style={{font: "400 4.0em/100% 'Italianno', Helvetica, Sans-serif"}}>
                               Kaiwa
                             </span>
-                          </Link>
+                          </a>
                         </li>
                       </ul>
                       <NavBarRight

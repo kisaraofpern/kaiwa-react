@@ -13,6 +13,8 @@ class GalleryContainer extends Component {
           key = {tile.id}
           id = {tile.id}
           animeObject = {tile}
+          handleAnimeTag = {this.props.handleAnimeTag}
+          currentUser = {this.props.current_user}
         />
       )
     })

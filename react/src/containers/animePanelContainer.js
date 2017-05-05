@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import BioPanel from '../components/bioPanel';
-import AnimePanelContainer from './animePanelContainer';
+import AnimePanel from '../components/animePanel';
 
-class ProfileContainer extends Component {
+class AnimePanelContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +14,7 @@ class ProfileContainer extends Component {
     this.currentUser();
   }
 
-  currentUser() {
+  currentUserAnimeTags() {
     fetch("/api/v1/userapi", { credentials: 'same-origin' })
     .then(response => response.json())
     .then(responseData => {
@@ -24,7 +23,6 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    debugger;
     return (
       <div className="row profile-box">
         <BioPanel
@@ -35,4 +33,4 @@ class ProfileContainer extends Component {
   }
 }
 
-export default ProfileContainer;
+export default AnimePanelContainer;

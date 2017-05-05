@@ -4,17 +4,13 @@ $warm-blue:   #648eca;
 $light-blue:  #a5d9f6;
 $alert-red:   #ca6478;
 $link-blue:   #1779ba;
+$off-white:   #fffef6;
 $transparent: rgba(0, 0, 0, 0);
 
 @import url('https://fonts.googleapis.com/css?family=Asar|Raleway|Italianno');
 
 body {
-  background: url("vector_background.jpg") no-repeat center center fixed;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
-  background-size: cover;
-
+  background-color: $off-white;
   color: $dark-blue;
   font-family: "Raleway", sans-serif;
   margin: 0;

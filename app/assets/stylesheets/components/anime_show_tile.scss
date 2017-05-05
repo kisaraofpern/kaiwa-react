@@ -33,18 +33,34 @@ li.anime-tile-menu {
 }
 
 li.anime-tile-menu.to-watch {
+  border: 5px solid $light-purple;
+}
+
+li.anime-tile-menu.to-watch.confirmed {
   background-color: $light-purple;
 }
 
 li.anime-tile-menu.loved {
+  border: 5px solid $light-green;
+}
+
+li.anime-tile-menu.confirmed {
   background-color: $light-green;
 }
 
 li.anime-tile-menu.meh {
+  border: 5px solid $light-yellow;
+}
+
+li.anime-tile-menu.meh.confirmed {
   background-color: $light-yellow;
 }
 
 li.anime-tile-menu.hated {
+  border: 5px solid $light-red
+}
+
+li.anime-tile-menu.hated.confirmed {
   background-color: $light-red;
 }
 
@@ -56,4 +72,29 @@ ul.menu.anime-tile-menu-list {
   float: right;
   margin-bottom: 10px;
   margin-top: -10px;
+}
+
+ul.menu.anime-tile-menu-dots {
+  margin-left: 30px;
+}
+
+.dot {
+  color: black;
+
+}
+
+.dot.to-watch.confirmed {
+  color: $light-purple;
+}
+
+.dot.loved.confirmed {
+  color: $light-green;
+}
+
+.dot.meh.confirmed {
+  color: $light-yellow;
+}
+
+.dot.hated.confirmed {
+  color: $light-red;
 }

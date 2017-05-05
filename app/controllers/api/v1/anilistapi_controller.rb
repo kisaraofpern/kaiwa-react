@@ -7,8 +7,7 @@ require 'uri'
 Dotenv.load
 
 class Api::V1::AnilistapiController < Api::V1::BaseController
-
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   @access_token = nil
   @access_expiration = nil
@@ -51,7 +50,7 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
     uri.query = URI.encode_www_form(params)
     res = Net::HTTP.get_response(uri)
     data = JSON.parse(res.body)
-    filtered_titles = data[0, 100]
+    filtered_titles = data[0, 4]
 
     render :json => filtered_titles
   end
