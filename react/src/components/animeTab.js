@@ -33,7 +33,6 @@ class AnimeTab extends Component {
   }
 
   render() {
-    debugger;
     let animeFragments = this.state.animeObjects.map( (animeObject) => {
       return (
         < AnimePanel
