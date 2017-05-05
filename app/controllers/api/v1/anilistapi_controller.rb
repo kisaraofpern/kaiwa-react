@@ -22,7 +22,9 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
       get_access_token
     end
 
-    uri = URI("https://anilist.co/api/anime/1")
+    query = params["animeId"]
+
+    uri = URI("https://anilist.co/api/anime/"+query)
     params = { access_token: @access_token }
     uri.query = URI.encode_www_form(params)
       data = get_response(uri)

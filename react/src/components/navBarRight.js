@@ -20,7 +20,7 @@ class NavBarRight extends Component {
             </form>
           </li>
           <li className="user-profile">
-          <a href={userPath}>Signed In As <strong>{this.props.current_user.username}</strong></a>
+          <Link to={userPath}>Signed In As <strong>{this.props.current_user.username}</strong></Link>
           </li>
           <li className="searchBar">
             <SearchBar

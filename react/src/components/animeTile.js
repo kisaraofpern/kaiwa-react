@@ -60,11 +60,8 @@ class AnimeTile extends Component {
     let proto_uri="/api/v1/animetagsapi?";
     proto_uri += `userid=${this.props.currentUser.id}&`;
     proto_uri += `animeid=${this.props.animeObject.id}`;
-
     let uri=encodeURI(proto_uri);
-    let myHeader = new Headers({
-      'Content-Type':'application/json'
-    });
+
     fetch(uri, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(responseData => {

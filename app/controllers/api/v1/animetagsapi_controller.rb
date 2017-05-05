@@ -14,7 +14,6 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
     else
       @allTags = Animetag.where("user_id = #{user_id}")
     end
-    
     render :json => @allTags
   end
 

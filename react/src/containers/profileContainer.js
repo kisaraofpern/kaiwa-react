@@ -5,31 +5,22 @@ import AnimePanelContainer from './animePanelContainer';
 class ProfileContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentUser: null
-    };
-    this.currentUser = this.currentUser.bind(this);
-  }
-
-  componentDidMount() {
-    this.currentUser();
-  }
-
-  currentUser() {
-    fetch("/api/v1/userapi", { credentials: 'same-origin' })
-    .then(response => response.json())
-    .then(responseData => {
-      this.setState({ currentUser: responseData });
-    });
   }
 
   render() {
-    debugger;
     return (
       <div className="row profile-box">
-        <BioPanel
-          currentUser = {this.state.currentUser}
-        />
+        <div className="columns small-12 medium-2">
+          <BioPanel
+            currentUser = {this.props.current_user}
+          />
+        </div>
+        <div className="columns small-12 medium-10">
+          <AnimePanelContainer
+            currentUser = {this.props.current_user}
+            handleAnimeTag = {this.props.handleAnimeTag}
+          />
+        </div>
       </div>
     );
   }

@@ -34,19 +34,11 @@ class BioPanel extends Component {
 
 
     return (
-      <div className="profile-box row">
-        <div className="columns small-12 medium-2">
-          <div className="columns small-12 medium 6">
-            <h3>{username}</h3>
-            <img src={avatar} />
-          </div>
-          <div className="columns small-12 medium 6">
-            <p><strong>Email:</strong> {email}</p>
-            <p><strong>Created:</strong> {full_date}</p>
-          </div>
-        </div>
-        <div className="columns small-12 medium-10">
-        </div>
+      <div>
+        <h3>{username}</h3>
+        <img src={avatar} />
+        <p><strong>Email:</strong> {email}</p>
+        <p><strong>Created:</strong> {full_date}</p>
       </div>
     );
   }
