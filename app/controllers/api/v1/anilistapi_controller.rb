@@ -7,8 +7,7 @@ require 'uri'
 Dotenv.load
 
 class Api::V1::AnilistapiController < Api::V1::BaseController
-
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   @access_token = nil
   @access_expiration = nil
@@ -23,7 +22,9 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
       get_access_token
     end
 
-    uri = URI("https://anilist.co/api/anime/1")
+    query = params["animeId"]
+
+    uri = URI("https://anilist.co/api/anime/"+query)
     params = { access_token: @access_token }
     uri.query = URI.encode_www_form(params)
       data = get_response(uri)
@@ -51,7 +52,7 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
     uri.query = URI.encode_www_form(params)
     res = Net::HTTP.get_response(uri)
     data = JSON.parse(res.body)
-    filtered_titles = data[0, 100]
+    filtered_titles = data[0, 4]
 
     render :json => filtered_titles
   end

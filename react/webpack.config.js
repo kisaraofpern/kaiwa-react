@@ -18,6 +18,7 @@ var config = {
   devtool: 'eval-source-map'
 }
 
+
 if (process.env.NODE_ENV === 'production') {
   delete config.devtool;
   var webpack = require('webpack');

@@ -3,28 +3,30 @@ $dark-blue:   #345cab;
 $warm-blue:   #648eca;
 $light-blue:  #a5d9f6;
 $alert-red:   #ca6478;
+$link-blue:   #1779ba;
+$off-white:   #fffef6;
 $transparent: rgba(0, 0, 0, 0);
 
 @import url('https://fonts.googleapis.com/css?family=Asar|Raleway|Italianno');
 
 body {
-  background: url("vector_background.jpg") no-repeat center center fixed;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -webkit-background-size: cover;
-  background-size: cover;
-
+  background-color: $off-white;
   color: $dark-blue;
   font-family: "Raleway", sans-serif;
   margin: 0;
-
 }
 
-.gallery-box {
+.gallery-box,
+.profile-box {
   margin-top: 60px;
 }
 
-#nav-bar {
+.rails-menu {
+  height: 86px;
+  background-color: $light-blue;
+}
+
+.nav-bar {
   position: fixed;
   background-color: $light-blue;
 }
@@ -57,11 +59,17 @@ h6 {
   float: left;
 }
 
+ul.menu {
+  margin-top: 3px;
+}
+
 ul.align-right {
   float: right;
 
   li.sign-up,
-  li.sign-in {
+  li.sign-in,
+  li.user-profile,
+  li.sign-out {
     // background: $warm-blue;
     // border: 1px solid $dark-blue;
     // border-radius: 5px;
@@ -77,6 +85,14 @@ ul.align-right {
     }
   }
 
+  li.sign-out input[type=submit] {
+    background-color: $light-blue;
+    border:0 none;
+    color: $link-blue;
+    cursor:pointer;
+    font-family: "Raleway", sans-serif;
+    padding:10px;
+  }
   li.searchBar {
     margin-top: 23px;
     cursor: pointer;

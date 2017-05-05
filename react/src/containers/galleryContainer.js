@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AnimePresentationTile from '../components/animePresentationTile';
+import AnimeTile from '../components/animeTile';
 
 class GalleryContainer extends Component {
   constructor(props) {
@@ -7,13 +7,14 @@ class GalleryContainer extends Component {
   }
 
   render() {
-
     let tiles = this.props.filtered_data.map( (tile) => {
       return(
-        < AnimePresentationTile
+        < AnimeTile
           key = {tile.id}
           id = {tile.id}
           animeObject = {tile}
+          handleAnimeTag = {this.props.handleAnimeTag}
+          currentUser = {this.props.current_user}
         />
       )
     })

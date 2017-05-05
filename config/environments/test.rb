@@ -1,3 +1,5 @@
+require 'carrierwave/orm/activerecord'
+
 Rails.application.configure do
 
   config.cache_classes = true
