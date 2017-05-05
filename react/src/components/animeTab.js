@@ -11,7 +11,6 @@ class AnimeTab extends Component {
   }
 
   getAnimeObjects() {
-    debugger;
     let allAnime = this.props.filtered_anime_tags.map( (animeId) => {
       let proto_uri="/api/v1/anilistapi?";
       proto_uri += `animeId=${animeId}`;
@@ -33,7 +32,6 @@ class AnimeTab extends Component {
   }
 
   render() {
-    debugger;
     let animeFragments = this.state.animeObjects.map( (animeObject) => {
       return (
         < AnimePanel
