@@ -29,18 +29,18 @@ div#rails-menu {
 
 .rails-menu {
   background-color: $light-blue;
-  width: 100%;
   margin-left: 0;
+  width: 100%;
 }
 
 ul.menu.rails-menu {
-  margin-top: 3px;
   margin-left: -7px;
+  margin-top: 3px;
 }
 
 #nav-bar{
-  position: fixed;
   background-color: $light-blue;
+  position: fixed;
 }
 
 h1,
