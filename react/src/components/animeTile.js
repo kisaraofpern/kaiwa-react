@@ -130,9 +130,11 @@ class AnimeTile extends Component {
 
     let animeTileComponent = (
       <div>
-        <button onClick={this.openModal}>
-          <img className="modal-button" src={this.props.animeObject.image_url_lge} />
-        </button>
+        <div className="modal-picture-div">
+          <button onClick={this.openModal}>
+            <img className="modal-button" src={this.props.animeObject.image_url_lge} />
+          </button>
+        </div>
         <ul className="menu anime-tile-menu-dots">
           <li onClick={this.handleToWatch}>
             <FontAwesome

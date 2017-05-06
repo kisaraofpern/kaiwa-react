@@ -52,7 +52,7 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
     uri.query = URI.encode_www_form(params)
     res = Net::HTTP.get_response(uri)
     data = JSON.parse(res.body)
-    filtered_titles = data[0, 4]
+    filtered_titles = data[0, 12]
 
     render :json => filtered_titles
   end
