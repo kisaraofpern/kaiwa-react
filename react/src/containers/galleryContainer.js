@@ -20,7 +20,7 @@ class GalleryContainer extends Component {
     })
 
     return (
-      <div className="gallery-box row small-up-3 medium-up-4 large-up-5">
+      <div className="gallery-box row small-up-3 medium-up-4 large-up-6">
         {tiles}
       </div>
     );
