@@ -117,7 +117,6 @@ class AnimeTile extends Component {
     this.setState({ hatedIt: newHatedIt });
   }
 
-
   render() {
     let id = this.props.animeObject.id;
     let toWatchButton = `anime-tile-menu to-watch ${this.state.toWatch}`;

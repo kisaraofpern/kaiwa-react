@@ -19,6 +19,10 @@ img.modal-button {
   width: 75%;
 }
 
+button {
+  cursor: pointer;
+}
+
 ul.menu anime-title-menu-list {
   float: right;
   margin-bottom: 10px;
@@ -80,7 +84,7 @@ ul.menu.anime-tile-menu-dots {
 
 .dot {
   color: black;
-
+  cursor: pointer;
 }
 
 .dot.to-watch.confirmed {
