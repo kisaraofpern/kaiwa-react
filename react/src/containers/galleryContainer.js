@@ -7,14 +7,12 @@ class GalleryContainer extends Component {
   }
 
   render() {
-    let tiles = this.props.filtered_data.map( (tile) => {
+    let tiles = this.props.filtered_data.map(animeObject => {
       return(
         < AnimeTile
-          key = {tile.id}
-          id = {tile.id}
-          animeObject = {tile}
-          handleAnimeTag = {this.props.handleAnimeTag}
-          currentUser = {this.props.current_user}
+          key = {animeObject.id}
+          id = {animeObject.id}
+          animeObject = {animeObject}
         />
       )
     })

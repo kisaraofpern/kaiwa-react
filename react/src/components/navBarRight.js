@@ -5,20 +5,31 @@ import SearchBar from './SearchBar';
 class NavBarRight extends Component {
   constructor (props) {
     super(props);
+    this.state = {
+      currentUser: null
+    };
+  }
+
+  componentDidMount() {
+    fetch("/api/v1/userapi", { credentials: 'same-origin' })
+    .then(response => response.json())
+    .then(responseData => {
+      this.setState({ currentUser: responseData });
+    });
   }
 
   render() {
     let userSessionOptions;
 
-    if (this.props.current_user) {
-      let userPath = `/users/${this.props.current_user.id}`;
+    if (this.state.currentUser) {
+      let userPath = `/users/${this.state.currentUser.id}`;
       userSessionOptions = (
         <ul className="menu align-right">
           <li className="sign-out">
             <a href="/sign_out">Sign Out</a>
           </li>
           <li className="user-profile">
-          <Link to={userPath}>Signed In As <strong>{this.props.current_user.username}</strong></Link>
+          <Link to={userPath}>Signed In As <strong>{this.state.currentUser.username}</strong></Link>
           </li>
           <li className="searchBar">
             <SearchBar
