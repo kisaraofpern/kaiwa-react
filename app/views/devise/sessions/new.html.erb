@@ -1,8 +1,8 @@
-<div data-sticky-container>
+<div id="rails-menu" data-sticky-container>
   <div class="sticky rails-menu row" data-sticky data-options="anchor: page; marginTop: 0; stickyOn: small;">
     <nav class="top-bar">
       <div class="top-bar-left">
-        <ul class="menu">
+        <ul class="menu rails-menu">
           <li class="menu-text">
             <span style="font: 400 2.0em/100% 'Italianno', Helvetica, Sans-serif;">
               <%= link_to "Kaiwa", root_path %>
@@ -15,7 +15,7 @@
 </div>
 
 <div class="form-box">
-  <h2>Log In</h2>
+  <h2>Sign In</h2>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
     <div class="field row">
