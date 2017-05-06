@@ -6,32 +6,20 @@ class MasterContainer extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      current_user: null,
       filtered_data: [],
       query: ''
     };
-    this.current_user = this.current_user.bind(this);
     this.fillGallery = this.fillGallery.bind(this);
     this.onSearchQuery = this.onSearchQuery.bind(this);
     this.handleSearchButton = this.handleSearchButton.bind(this);
-    this.handleAnimeTag = this.handleAnimeTag.bind(this);
     this.getSearchResults = this.getSearchResults.bind(this);
   }
 
   componentDidMount() {
-    this.current_user();
     let currentLocation = this.props.location.pathname;
     if (currentLocation === "/") {
       this.fillGallery();
     }
-  }
-
-  current_user() {
-    fetch("/api/v1/userapi", { credentials: 'same-origin' })
-    .then(response => response.json())
-    .then(responseData => {
-      this.setState({ current_user: responseData });
-    });
   }
 
   fillGallery() {
@@ -88,29 +76,11 @@ class MasterContainer extends Component {
     }
   }
 
-  handleAnimeTag(id, preference) {
-    let payload = JSON.stringify({
-      user: this.state.current_user,
-      anilist_id: id,
-      tag_id: preference
-    });
-
-    fetch("/api/v1/animetagsapi.json", {
-      method: "POST",
-      credentials: "same-origin",
-      headers: { "Content-Type": "application/json",
-                 "Accept": "application/json" },
-      body: payload
-    });
-  }
-
   render() {
     let childrenWithProps = React.cloneElement(
       this.props.children,
       {
-        filtered_data: this.state.filtered_data,
-        current_user: this.state.current_user,
-        handleAnimeTag: this.handleAnimeTag
+        filtered_data: this.state.filtered_data
       });
 
     return(
