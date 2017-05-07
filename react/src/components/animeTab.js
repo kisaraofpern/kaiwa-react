@@ -38,8 +38,6 @@ class AnimeTab extends Component {
           key = {animeObject.id}
           animeId = {animeObject.id}
           animeObject = {animeObject}
-          currentUser = {this.props.currentUser}
-          handleAnimeTag = {this.props.handleAnimeTag}
         />
       )
     })

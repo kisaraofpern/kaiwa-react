@@ -11,15 +11,10 @@ class ProfileContainer extends Component {
     return (
       <div className="row profile-box">
         <div className="columns small-12 medium-2">
-          <BioPanel
-            currentUser = {this.props.current_user}
-          />
+          <BioPanel/>
         </div>
         <div className="columns small-12 medium-10">
-          <AnimePanelContainer
-            currentUser = {this.props.current_user}
-            handleAnimeTag = {this.props.handleAnimeTag}
-          />
+          <AnimePanelContainer/>
         </div>
       </div>
     );

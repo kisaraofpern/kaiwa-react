@@ -13,53 +13,59 @@ class AnimePanelContainer extends Component {
       mehArray: [],
       hatedItArray: []
     };
-    this.currentUserAnimeTags = this.currentUserAnimeTags.bind(this);
   }
 
   componentDidMount() {
-    this.currentUserAnimeTags();
-  }
+    let thisPage = window.location.href;
+    let userid = thisPage.slice(28, thisPage.length);
 
-  currentUserAnimeTags() {
-    let proto_uri="/api/v1/animetagsapi?";
-    proto_uri += `userid=${this.props.currentUser.id}`;
-
-    let uri=encodeURI(proto_uri);
-
+    let uri=`/api/v1/userapi?userid=${userid}`;
     fetch(uri, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(responseData => {
-      let newAnimeTagArray = [];
-      let newToWatchArray = [];
-      let newLovedItArray = [];
-      let newMehArray = [];
-      let newHatedItArray = [];
+      let newProfiledUser = responseData;
 
-      responseData.forEach( (animeTagObject) => {
-        if (!newAnimeTagArray.includes(animeTagObject.anilist_id)) {
-          newAnimeTagArray.push(animeTagObject.anilist_id);
-        }
-        switch(animeTagObject.tag_id) {
-          case 0:
-            newToWatchArray.push(animeTagObject.anilist_id);
-            break;
-          case 1:
-            newLovedItArray.push(animeTagObject.anilist_id);
-            break;
-          case 2:
-            newMehArray.push(animeTagObject.anilist_id);
-            break;
-          case 3:
-            newHatedItArray.push(animeTagObject.anilist_id);
-        }
+      let proto_uri="/api/v1/animetagsapi?";
+      proto_uri += `userid=${newProfiledUser.id}`;
+
+      let uri=encodeURI(proto_uri);
+
+      fetch(uri, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(responseData => {
+        let newAnimeTagArray = [];
+        let newToWatchArray = [];
+        let newLovedItArray = [];
+        let newMehArray = [];
+        let newHatedItArray = [];
+
+        responseData.forEach( (animeTagObject) => {
+          if (!newAnimeTagArray.includes(animeTagObject.anilist_id)) {
+            newAnimeTagArray.push(animeTagObject.anilist_id);
+          }
+          switch(animeTagObject.tag_id) {
+            case 0:
+              newToWatchArray.push(animeTagObject.anilist_id);
+              break;
+            case 1:
+              newLovedItArray.push(animeTagObject.anilist_id);
+              break;
+            case 2:
+              newMehArray.push(animeTagObject.anilist_id);
+              break;
+            case 3:
+              newHatedItArray.push(animeTagObject.anilist_id);
+          }
+        });
+        this.setState({
+
+          animeTagArray: newAnimeTagArray,
+          toWatchArray: newToWatchArray,
+          lovedItArray: newLovedItArray,
+          mehArray: newMehArray,
+          hatedItArray: newHatedItArray
+         });
       });
-      this.setState({
-        animeTagArray: newAnimeTagArray,
-        toWatchArray: newToWatchArray,
-        lovedItArray: newLovedItArray,
-        mehArray: newMehArray,
-        hatedItArray: newHatedItArray
-       });
     });
   }
 
@@ -111,36 +117,26 @@ class AnimePanelContainer extends Component {
         <TabPanel className='tab allTitles'>
           <AnimeTab
             filtered_anime_tags={this.state.animeTagArray}
-            currentUser = {this.props.currentUser}
-            handleAnimeTag = {this.props.handleAnimeTag}
           />
         </TabPanel>
         <TabPanel className='tab to-watch'>
           <AnimeTab
             filtered_anime_tags={this.state.toWatchArray}
-            currentUser = {this.props.currentUser}
-            handleAnimeTag = {this.props.handleAnimeTag}
           />
         </TabPanel>
         <TabPanel className='tab loved-it'>
           <AnimeTab
             filtered_anime_tags={this.state.lovedItArray}
-            currentUser = {this.props.currentUser}
-            handleAnimeTag = {this.props.handleAnimeTag}
           />
         </TabPanel>
         <TabPanel className='tab meh'>
           <AnimeTab
             filtered_anime_tags={this.state.mehArray}
-            currentUser = {this.props.currentUser}
-            handleAnimeTag = {this.props.handleAnimeTag}
           />
         </TabPanel>
         <TabPanel className='tab hated-it'>
           <AnimeTab
             filtered_anime_tags={this.state.hatedItArray}
-            currentUser = {this.props.currentUser}
-            handleAnimeTag = {this.props.handleAnimeTag}
           />
         </TabPanel>
       </Tabs>

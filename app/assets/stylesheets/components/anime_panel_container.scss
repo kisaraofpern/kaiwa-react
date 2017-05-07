@@ -1,0 +1,31 @@
+$white:         #ffffff;
+$dark-blue:     #345cab;
+$warm-blue:     #648eca;
+$warm-blue-translucent: rgba(165, 217, 246, 0.36);
+$light-blue:    #a5d9f6;
+$alert-red:     #ca6478;
+$light-purple:  rgba(102, 0, 204, 0.25);
+$light-green:   rgba(0, 204, 51, 0.25);
+$light-yellow:  rgba(204, 153, 0, 0.25);
+$light-red:     rgba(204, 0, 0, 0.25);
+$light-grey:    rgba(0, 0, 0, 0.25);
+
+.tab {
+  cursor: pointer;
+
+  .to-watch {
+    background-color: $light-purple;
+  }
+
+  .loved-it {
+    background-color: $light-green;
+  }
+
+  .meh {
+    background-color: $light-yellow;
+  }
+
+  .hated-it {
+    background-color: $light-red;
+  }
+}

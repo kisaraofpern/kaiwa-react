@@ -1,25 +1,90 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome';
 
 class AnimePanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toWatch: null,
-      lovedIt: null,
-      meh: null,
-      hatedIt: null
+      profiledUser: null,
+      currentUser: null,
+      profiledToWatch: null,
+      profiledLovedIt: null,
+      profiledMeh: null,
+      profiledHatedIt: null,
+      currentToWatch: null,
+      currentLovedIt: null,
+      currentMeh: null,
+      currentHatedIt: null
     };
-    this.currentUserAnimeTags = this.currentUserAnimeTags.bind(this);
+    this.getAnimeTags = this.getAnimeTags.bind(this);
+    this.handleAnimeTag = this.handleAnimeTag.bind(this);
     this.handleToWatch = this.handleToWatch.bind(this);
     this.handleLovedIt = this.handleLovedIt.bind(this);
     this.handleMeh = this.handleMeh.bind(this);
     this.handleHatedIt = this.handleHatedIt.bind(this);
   }
 
-  currentUserAnimeTags() {
+  componentDidMount() {
+    // determine the currentUser & the profiledUser
+    let thisPage = window.location.href;
+    let userid = thisPage.slice(28, thisPage.length);
+
+    let uri=`/api/v1/userapi?userid=${userid}`;
+    fetch(uri, { credentials: 'same-origin' })
+    .then(response => response.json())
+    .then(responseData => {
+      let newProfiledUser = responseData;
+
+      fetch("/api/v1/userapi", { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(otherResponseData => {
+        let newCurrentUser = otherResponseData;
+
+        // get animeTags for profiledUser
+        let arrayOfProfiledUserTags = this.getAnimeTags(newProfiledUser);
+
+        let newProfiledToWatch = arrayOfProfiledUserTags[0];
+        let newProfiledLovedIt = arrayOfProfiledUserTags[1];
+        let newProfiledMeh     = arrayOfProfiledUserTags[2];
+        let newProfiledHatedIt = arrayOfProfiledUserTags[3];
+
+        let newCurrentToWatch = null;
+        let newCurrentLovedIt = null;
+        let newCurrentMeh = null;
+        let newCurrentHated = null;
+
+        // set currentUserStats if profiledUser != currentUser
+        if (newProfiledUser.id !== newCurrentUser.id) {
+          let arrayOfCurrentUserTags = this.getAnimeTags(newCurrentUser);
+
+          let newCurrentToWatch = arrayOfCurrentUserTags[0];
+          let newCurrentLovedIt = arrayOfCurrentUserTags[1];
+          let newCurrentMeh     = arrayOfCurrentUserTags[2];
+          let newCurrentHatedIt = arrayOfCurrentUserTags[3];
+        }
+
+        this.setState = {
+          profiledUser: newProfiledUser,
+          currentUser: newCurrentUser,
+          profiledToWatch: newProfiledToWatch,
+          profiledLovedIt: newProfiledLovedIt,
+          profiledMeh: newProfiledMeh,
+          profiledHatedIt: newProfiledHatedIt,
+          currentToWatch: newCurrentToWatch,
+          currentLovedIt: newCurrentLovedIt,
+          currentMeh: newCurrentMeh,
+          currentHatedIt: newCurrentHatedIt
+        };
+      });
+    });
+  }
+
+  getAnimeTags(user) {
+    let arrayOfTags = [];
+
     let proto_uri="/api/v1/animetagsapi?";
-    proto_uri += `userid=${this.props.currentUser.id}&`;
+    proto_uri += `userid=${user.id}&`;
     proto_uri += `animeid=${this.props.animeId}`;
     let uri=encodeURI(proto_uri);
     fetch(uri, { credentials: 'same-origin' })
@@ -32,17 +97,26 @@ class AnimePanel extends Component {
       let newLovedIt = tagArray.includes(1) ? "confirmed" : null;
       let newMeh     = tagArray.includes(2) ? "confirmed" : null;
       let newHatedIt = tagArray.includes(3) ? "confirmed" : null;
-      this.setState({
-        toWatch: newToWatch,
-        lovedIt: newLovedIt,
-        meh: newMeh,
-        hatedIt: newHatedIt
-      });
+
+      arrayOfTags = [newtoWatch, newLovedIt, newMeh, newHatedIt];
     });
+    return arrayOfTags;
   }
 
-  componentDidMount() {
-    this.currentUserAnimeTags();
+  handleAnimeTag(id, preference) {
+    let payload = JSON.stringify({
+      user: this.state.currentUser,
+      anilist_id: id,
+      tag_id: preference
+    });
+
+    fetch("/api/v1/animetagsapi.json", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json",
+                 "Accept": "application/json" },
+      body: payload
+    });
   }
 
   handleToWatch() {
@@ -74,6 +148,22 @@ class AnimePanel extends Component {
   }
 
   render() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     let toWatchButton = `anime-tile-menu to-watch ${this.state.toWatch}`;
     let lovedItButton = `anime-tile-menu loved ${this.state.lovedIt}`;
     let mehButton     = `anime-tile-menu meh ${this.state.meh}`;
