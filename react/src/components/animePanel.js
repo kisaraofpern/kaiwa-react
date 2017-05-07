@@ -6,6 +6,7 @@ class AnimePanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      animeObject: null,
       profiledUser: null,
       currentUser: null,
       profiledToWatch: null,
@@ -25,7 +26,7 @@ class AnimePanel extends Component {
     this.handleHatedIt = this.handleHatedIt.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // determine the currentUser & the profiledUser
     let thisPage = window.location.href;
     let userid = thisPage.slice(28, thisPage.length);
@@ -64,7 +65,22 @@ class AnimePanel extends Component {
           let newCurrentHatedIt = arrayOfCurrentUserTags[3];
         }
 
+        let animeObject = null;
+        debugger;
+        let query = JSON.stringify(`anime/${this.props.animeId}`);
+        fetch("/api/v1/anilistapi.json", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {"Content-Type": "application/json", Accept: "application.json"},
+          body: query
+        })
+        .then(response => response.json())
+        .then(responseData => {
+          animeObject = responseData[0];
+        });
+        debugger;
         this.setState = {
+          animeObject: animeObject,
           profiledUser: newProfiledUser,
           currentUser: newCurrentUser,
           profiledToWatch: newProfiledToWatch,
@@ -100,6 +116,7 @@ class AnimePanel extends Component {
 
       arrayOfTags = [newtoWatch, newLovedIt, newMeh, newHatedIt];
     });
+    debugger;
     return arrayOfTags;
   }
 
@@ -121,132 +138,176 @@ class AnimePanel extends Component {
 
   handleToWatch() {
     let id = this.props.animeId;
-    let newToWatch = (this.state.toWatch === "confirmed") ? null : "confirmed";
+    let newToWatch = (this.state.currentToWatch === "confirmed") ? null : "confirmed";
     this.props.handleAnimeTag(id, 0);
     this.setState({ toWatch: newToWatch });
   }
 
   handleLovedIt() {
     let id = this.props.animeId;
-    let newLovedIt = (this.state.lovedIt === "confirmed") ? null : "confirmed";
+    let newLovedIt = (this.state.currentLovedIt === "confirmed") ? null : "confirmed";
     this.props.handleAnimeTag(id, 1);
     this.setState({ lovedIt: newLovedIt });
   }
 
   handleMeh() {
     let id = this.props.animeId;
-    let newMeh = (this.state.meh === "confirmed") ? null : "confirmed";
+    let newMeh = (this.state.currentMeh === "confirmed") ? null : "confirmed";
     this.props.handleAnimeTag(id, 2);
     this.setState({ meh: newMeh });
   }
 
   handleHatedIt() {
     let id = this.props.animeId;
-    let newHatedIt = (this.state.hatedIt === "confirmed") ? null : "confirmed";
+    let newHatedIt = (this.state.currentHatedIt === "confirmed") ? null : "confirmed";
     this.props.handleAnimeTag(id, 3);
     this.setState({ hatedIt: newHatedIt });
   }
 
   render() {
+    debugger;
+    let animeContentFragment = (
+      <div>
+        <div className="columns small-2 anime-panel-content">
+          <img className="anime-panel-img" src={this.state.animeObject.image_url_sml} />
+        </div>
 
+        <div className="columns small-7 anime-panel-content">
+          <p className="animeShowText">
+            <strong>Title (Japanese): </strong>{this.state.animeObject.title_japanese}<br />
+            <strong>Title (Romaji): </strong>{this.state.animeObject.title_romaji}<br />
+            <strong>Title (English): </strong>{this.state.animeObject.title_english}<br />
+            <strong>Description: </strong>{this.state.animeObject.description || <em>(not available)</em>}<br />
+            <strong>Genres: </strong>{this.state.animeObject.genres.join(", ")}<br />
+          </p>
+        </div>
+      </div>
+    )
 
+    let profiledToWatch = `anime-tile-menu to-watch ${this.state.profiledToWatch}`;
+    let profiledLovedIt = `anime-tile-menu loved ${this.state.profiledLovedIt}`;
+    let profiledMeh     = `anime-tile-menu meh ${this.state.profiledMeh}`;
+    let profiledHatedIt = `anime-tile-menu hated ${this.state.profiledHatedIt}`;
 
+    let currentToWatch = `anime-tile-menu to-watch ${this.state.currentToWatch}`;
+    let currentLovedIt = `anime-tile-menu loved ${this.state.currentLovedIt}`;
+    let currentMeh     = `anime-tile-menu meh ${this.state.currentMeh}`;
+    let currentHatedIt = `anime-tile-menu hated ${this.state.currentHatedIt}`;
 
+    let profiledTagsFragment = (
+      <ul className="menu anime-tile-menu-list">
+        <li className={profiledToWatch}>
+          <button className="to-watch">
+            <FontAwesome
+              className='to-watch'
+              name='flag'
+              size='3x'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            />
+          </button>
+        </li>
+        <li className={profiledLovedIt}>
+          <button className="loved">
+            <FontAwesome
+              name='smile-o'
+              size='3x'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            />
+          </button>
+        </li>
+        <li className={profiledMeh}>
+          <button className="meh">
+            <FontAwesome
+              className='meh'
+              name='meh-o'
+              size='3x'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            />
+          </button>
+        </li>
+        <li className={profiledHatedIt}>
+          <button className="hated">
+            <FontAwesome
+            className='hated'
+            size='3x'
+            name='frown-o'
+            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            />
+          </button>
+        </li>
+      </ul>
+    )
 
+    let currentTagsFragment = (
+      <ul className="menu anime-tile-menu-list">
+        <li className={currentToWatch}>
+          <button className="to-watch" onClick={this.handleToWatch}>
+            <FontAwesome
+              className='to-watch'
+              name='flag'
+              size='3x'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            /><br /><br />
+            To Watch
+          </button>
+        </li>
+        <li className={currentLovedIt}>
+          <button className="loved" onClick={this.handleLovedIt}>
+            <FontAwesome
+              name='smile-o'
+              size='3x'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            /><br /><br />
+            Loved It!
+          </button>
+        </li>
+        <li className={currentMeh}>
+          <button className="meh" onClick={this.handleMeh}>
+            <FontAwesome
+              className='meh'
+              name='meh-o'
+              size='3x'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            /><br /><br />
+            Meh.
+          </button>
+        </li>
+        <li className={currentHatedIt}>
+          <button className="hated" onClick={this.handleHatedIt}>
+            <FontAwesome
+            className='hated'
+            size='3x'
+            name='frown-o'
+            style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            /><br /><br />
+            Hated It!
+          </button>
+        </li>
+      </ul>
+    )
 
+    let tagsFragment = (
+      <div className="columns small-3 anime-panel-content">
+        {this.state.profiledUser.username}
+        {profiledTagsFragment}
+        {this.state.currentUser.username}
+        {currentTagsFragment}
+      </div>
+    )
 
-
-
-
-
-
-
-
-
-
-    let toWatchButton = `anime-tile-menu to-watch ${this.state.toWatch}`;
-    let lovedItButton = `anime-tile-menu loved ${this.state.lovedIt}`;
-    let mehButton     = `anime-tile-menu meh ${this.state.meh}`;
-    let hatedItButton = `anime-tile-menu hated ${this.state.hatedIt}`;
-
-    let animePanelFragment;
-
-    if (!this.props.animeObject) {
-      animePanelFragment = <div>Loading...</div>
-    } else {
-      animePanelFragment = (
-        <div className="row">
-          <div className="columns small-2">
-            <img src={this.props.animeObject.image_url_med} />
-          </div>
-          <div className="columns small-8">
-            <p className="animeShowTileText">
-              <strong>Title (Japanese): </strong>
-              {this.props.animeObject.title_japanese}<br />
-              <strong>Title (Romaji): </strong>
-              {this.props.animeObject.title_romaji}<br />
-              <strong>Title (English): </strong>
-              {this.props.animeObject.title_english}<br />
-              <strong>Description: </strong>
-              {this.props.animeObject.description}
-              <strong>Genres: </strong>
-              {this.props.animeObject.genres.join(", ")}<br />
-            </p>
-          </div>
-          <div className="columns small-2">
-            <ul className="menu vertical anime-tile-menu-list">
-              <li className={toWatchButton}>
-                <button className="to-watch" onClick={this.handleToWatch}>
-                  <FontAwesome
-                    className='to-watch'
-                    name='flag'
-                    size='3x'
-                    style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                  /><br /><br />
-                  To Watch
-                </button>
-              </li>
-              <li className={lovedItButton}>
-                <button className="loved" onClick={this.handleLovedIt}>
-                  <FontAwesome
-                    name='smile-o'
-                    size='3x'
-                    style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                  /><br /><br />
-                  Loved It!
-                </button>
-              </li>
-              <li className={mehButton}>
-                <button className="meh" onClick={this.handleMeh}>
-                  <FontAwesome
-                    className='meh'
-                    name='meh-o'
-                    size='3x'
-                    style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                  /><br /><br />
-                  Meh.
-                </button>
-              </li>
-              <li className={hatedItButton}>
-                <button className="hated" onClick={this.handleHatedIt}>
-                  <FontAwesome
-                  className='hated'
-                  size='3x'
-                  name='frown-o'
-                  style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-                  /><br /><br />
-                  Hated It!
-                </button>
-              </li>
-            </ul>
-          </div>
+    if (currentUser.id === profiledUser.id) {
+      tagsFragment = (
+        <div className="columns small-3 anime-panel-content">
+          {this.state.currentUser.username}
+          {currentTagsFragment}
         </div>
       )
     }
 
     return (
-      <div>
-        {animePanelFragment}
+      <div className="row">
+        {animeContentFragment}
+        {tagsFragment}
       </div>
     )
   }

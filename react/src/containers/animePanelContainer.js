@@ -6,67 +6,6 @@ import FontAwesome from 'react-fontawesome';
 class AnimePanelContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      animeTagArray: [],
-      toWatchArray: [],
-      lovedItArray: [],
-      mehArray: [],
-      hatedItArray: []
-    };
-  }
-
-  componentDidMount() {
-    let thisPage = window.location.href;
-    let userid = thisPage.slice(28, thisPage.length);
-
-    let uri=`/api/v1/userapi?userid=${userid}`;
-    fetch(uri, { credentials: 'same-origin' })
-    .then(response => response.json())
-    .then(responseData => {
-      let newProfiledUser = responseData;
-
-      let proto_uri="/api/v1/animetagsapi?";
-      proto_uri += `userid=${newProfiledUser.id}`;
-
-      let uri=encodeURI(proto_uri);
-
-      fetch(uri, { credentials: 'same-origin' })
-      .then(response => response.json())
-      .then(responseData => {
-        let newAnimeTagArray = [];
-        let newToWatchArray = [];
-        let newLovedItArray = [];
-        let newMehArray = [];
-        let newHatedItArray = [];
-
-        responseData.forEach( (animeTagObject) => {
-          if (!newAnimeTagArray.includes(animeTagObject.anilist_id)) {
-            newAnimeTagArray.push(animeTagObject.anilist_id);
-          }
-          switch(animeTagObject.tag_id) {
-            case 0:
-              newToWatchArray.push(animeTagObject.anilist_id);
-              break;
-            case 1:
-              newLovedItArray.push(animeTagObject.anilist_id);
-              break;
-            case 2:
-              newMehArray.push(animeTagObject.anilist_id);
-              break;
-            case 3:
-              newHatedItArray.push(animeTagObject.anilist_id);
-          }
-        });
-        this.setState({
-
-          animeTagArray: newAnimeTagArray,
-          toWatchArray: newToWatchArray,
-          lovedItArray: newLovedItArray,
-          mehArray: newMehArray,
-          hatedItArray: newHatedItArray
-         });
-      });
-    });
   }
 
   render() {
@@ -116,27 +55,27 @@ class AnimePanelContainer extends Component {
 
         <TabPanel className='tab allTitles'>
           <AnimeTab
-            filtered_anime_tags={this.state.animeTagArray}
+            filter="allTitles"
           />
         </TabPanel>
         <TabPanel className='tab to-watch'>
           <AnimeTab
-            filtered_anime_tags={this.state.toWatchArray}
+            filter="toWatch"
           />
         </TabPanel>
         <TabPanel className='tab loved-it'>
           <AnimeTab
-            filtered_anime_tags={this.state.lovedItArray}
+            filter="lovedIt"
           />
         </TabPanel>
         <TabPanel className='tab meh'>
           <AnimeTab
-            filtered_anime_tags={this.state.mehArray}
+            filter="meh"
           />
         </TabPanel>
         <TabPanel className='tab hated-it'>
           <AnimeTab
-            filtered_anime_tags={this.state.hatedItArray}
+            filter="hatedIt"
           />
         </TabPanel>
       </Tabs>

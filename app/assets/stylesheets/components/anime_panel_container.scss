@@ -12,20 +12,20 @@ $light-grey:    rgba(0, 0, 0, 0.25);
 
 .tab {
   cursor: pointer;
+}
 
-  .to-watch {
-    background-color: $light-purple;
-  }
+.tab.to-watch {
+  background-color: $light-purple;
+}
 
-  .loved-it {
-    background-color: $light-green;
-  }
+.tab.loved-it {
+  background-color: $light-green;
+}
 
-  .meh {
-    background-color: $light-yellow;
-  }
+.tab.meh {
+  background-color: $light-yellow;
+}
 
-  .hated-it {
-    background-color: $light-red;
-  }
+.tab-hated-it {
+  background-color: $light-red;
 }
