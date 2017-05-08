@@ -25,26 +25,27 @@ class Api::V1::UserapiController < Api::V1::BaseController
         get_access_token
       end
 
-      allAnimeList = @user.animetags.pluck(:anilist_id).uniq
-      toWatchList = Animetag.where("user_id = 1 and tag_id=0").pluck(:anilist_id)
-      lovedItList = Animetag.where("user_id = 1 and tag_id=1").pluck(:anilist_id)
-      mehList = Animetag.where("user_id = 1 and tag_id=2").pluck(:anilist_id)
-      hatedItList = Animetag.where("user_id = 1 and tag_id=3").pluck(:anilist_id)
+      all_anime_list = @user.animetags.pluck(:anilist_id).uniq
+      to_watch_list = Animetag.where("user_id = 1 and tag_id=0").pluck(:anilist_id)
+      loved_it_list = Animetag.where("user_id = 1 and tag_id=1").pluck(:anilist_id)
+      meh_list = Animetag.where("user_id = 1 and tag_id=2").pluck(:anilist_id)
+      hated_it_list =
+        Animetag.where("user_id = 1 and tag_id=3").pluck(:anilist_id)
 
-      allAnime = getAnime(allAnimeList)
-      toWatch  = getAnime(toWatchList)
-      lovedIt  = getAnime(lovedItList)
-      meh      = getAnime(mehList)
-      hatedIt  = getAnime(hatedItList)
+      all_anime = get_anime(all_anime_list)
+      to_watch  = get_anime(to_watch_list)
+      loved_it  = get_anime(loved_it_list)
+      meh      = get_anime(meh_list)
+      hated_it  = get_anime(hated_it_list)
 
       render :json => {
         user: @user,
         tags: @user.animetags,
-        allAnime: allAnime,
-        toWatch: toWatch,
-        lovedIt: lovedIt,
+        allAnime: all_anime,
+        toWatch: to_watch,
+        lovedIt: loved_it,
         meh: meh,
-        hatedIt: hatedIt
+        hatedIt: hated_it
       }
     end
   end
@@ -53,7 +54,7 @@ class Api::V1::UserapiController < Api::V1::BaseController
 
   def get_response(uri)
     res = Net::HTTP.get_response(uri)
-    data = JSON.parse(res.body)
+    JSON.parse(res.body)
   end
 
   def get_access_token
@@ -70,18 +71,19 @@ class Api::V1::UserapiController < Api::V1::BaseController
     @access_expiration = data["expires"]
   end
 
-  def getAnime(list)
-    animeList = []
+  def get_anime(list)
+    anime_list = []
     list.each do |anilist_id|
-      animeHash = {}
+      anime_hash = {}
       uri = URI("https://anilist.co/api/anime/#{anilist_id}")
       params = { access_token: @access_token }
       uri.query = URI.encode_www_form(params)
       data = get_response(uri)
-      animeHash["object"] = data
-      animeHash["animeTags"] = Animetag.where("user_id = 1 and anilist_id=#{anilist_id}").pluck(:tag_id)
-      animeList.push(animeHash)
+      anime_hash["object"] = data
+      anime_hash["animeTags"] =
+        Animetag.where("user_id=1 and anilist_id=#{anilist_id}").pluck(:tag_id)
+      anime_list.push(anime_hash)
     end
-    return animeList
+    anime_list
   end
 end

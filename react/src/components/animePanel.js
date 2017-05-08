@@ -155,7 +155,6 @@ class AnimePanel extends Component {
   }
 
   render() {
-    debugger;
     let animeContentFragment = <div>"Loading..."</div>
     if (this.state.animeObject) {
         animeContentFragment = (
