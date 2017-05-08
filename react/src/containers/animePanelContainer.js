@@ -19,62 +19,58 @@ class AnimePanelContainer extends Component {
             <FontAwesome
               className='tab to-watch'
               name='flag'
-              size='2x'
               style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
             />
-            To Watch
+             To Watch
           </Tab>
           <Tab className='tab loved-it'>
             <FontAwesome
               className='tab loved-it'
               name='smile-o'
-              size='2x'
               style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
             />
-            Loved It!
+             Loved It!
           </Tab>
           <Tab className='tab meh'>
             <FontAwesome
               className='tab meh'
               name='meh-o'
-              size='2x'
               style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
             />
-            Meh.
+             Meh.
           </Tab>
           <Tab className='tab hated-it'>
             <FontAwesome
               className='tab hated-it'
               name='frown-o'
-              size='2x'
               style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
             />
-            To Watch
+             Hated It
           </Tab>
         </TabList>
 
         <TabPanel className='tab allTitles'>
-          <AnimeTab
+          <AnimeTab className='tab allTitles'
             filter="allTitles"
           />
         </TabPanel>
         <TabPanel className='tab to-watch'>
-          <AnimeTab
+          <AnimeTab className="tab to-watch"
             filter="toWatch"
           />
         </TabPanel>
         <TabPanel className='tab loved-it'>
-          <AnimeTab
+          <AnimeTab className="tab loved-it"
             filter="lovedIt"
           />
         </TabPanel>
         <TabPanel className='tab meh'>
-          <AnimeTab
+          <AnimeTab className="tab meh"
             filter="meh"
           />
         </TabPanel>
         <TabPanel className='tab hated-it'>
-          <AnimeTab
+          <AnimeTab className="tab hated-it"
             filter="hatedIt"
           />
         </TabPanel>

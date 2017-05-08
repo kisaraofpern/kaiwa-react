@@ -18,7 +18,6 @@ class AnimePanel extends Component {
       currentMeh: null,
       currentHatedIt: null
     };
-    this.getAnimeTags = this.getAnimeTags.bind(this);
     this.handleAnimeTag = this.handleAnimeTag.bind(this);
     this.handleToWatch = this.handleToWatch.bind(this);
     this.handleLovedIt = this.handleLovedIt.bind(this);
@@ -26,7 +25,9 @@ class AnimePanel extends Component {
     this.handleHatedIt = this.handleHatedIt.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    console.log("Component Did Mount");
+    console.log(this.props.animeId);
     // determine the currentUser & the profiledUser
     let thisPage = window.location.href;
     let userid = thisPage.slice(28, thisPage.length);
@@ -43,81 +44,70 @@ class AnimePanel extends Component {
         let newCurrentUser = otherResponseData;
 
         // get animeTags for profiledUser
-        let arrayOfProfiledUserTags = this.getAnimeTags(newProfiledUser);
-
-        let newProfiledToWatch = arrayOfProfiledUserTags[0];
-        let newProfiledLovedIt = arrayOfProfiledUserTags[1];
-        let newProfiledMeh     = arrayOfProfiledUserTags[2];
-        let newProfiledHatedIt = arrayOfProfiledUserTags[3];
-
-        let newCurrentToWatch = null;
-        let newCurrentLovedIt = null;
-        let newCurrentMeh = null;
-        let newCurrentHated = null;
-
-        // set currentUserStats if profiledUser != currentUser
-        if (newProfiledUser.id !== newCurrentUser.id) {
-          let arrayOfCurrentUserTags = this.getAnimeTags(newCurrentUser);
-
-          let newCurrentToWatch = arrayOfCurrentUserTags[0];
-          let newCurrentLovedIt = arrayOfCurrentUserTags[1];
-          let newCurrentMeh     = arrayOfCurrentUserTags[2];
-          let newCurrentHatedIt = arrayOfCurrentUserTags[3];
-        }
-
-        let animeObject = null;
-        debugger;
-        let query = JSON.stringify(`anime/${this.props.animeId}`);
-        fetch("/api/v1/anilistapi.json", {
-          method: "POST",
-          credentials: "same-origin",
-          headers: {"Content-Type": "application/json", Accept: "application.json"},
-          body: query
-        })
+        let uri="/api/v1/animetagsapi?";
+        uri += `userid=${newProfiledUser.id}&`;
+        uri += `animeid=${this.props.animeId}`;
+        fetch(uri, { credentials: 'same-origin' })
         .then(response => response.json())
         .then(responseData => {
-          animeObject = responseData[0];
+          let tagArray = responseData.map( (tagObject) => {
+            return tagObject.tag_id;
+          });
+          let newProfiledToWatch = tagArray.includes(0) ? "confirmed" : null;
+          let newProfiledLovedIt = tagArray.includes(1) ? "confirmed" : null;
+          let newProfiledMeh     = tagArray.includes(2) ? "confirmed" : null;
+          let newProfiledHatedIt = tagArray.includes(3) ? "confirmed" : null;
+
+          let newCurrentToWatch = null;
+          let newCurrentLovedIt = null;
+          let newCurrentMeh = null;
+          let newCurrentHatedIt = null;
+
+          // get animeTags for CurrentUser
+          let uri="/api/v1/animetagsapi?";
+          uri += `userid=${newCurrentUser.id}&`;
+          uri += `animeid=${this.props.animeId}`;
+          fetch(uri, { credentials: 'same-origin' })
+          .then(response => response.json())
+          .then(responseData => {
+            let tagArray = responseData.map( (tagObject) => {
+              return tagObject.tag_id;
+            });
+            let newCurrentToWatch = tagArray.includes(0) ? "confirmed" : null;
+            let newCurrentLovedIt = tagArray.includes(1) ? "confirmed" : null;
+            let newCurrentMeh     = tagArray.includes(2) ? "confirmed" : null;
+            let newCurrentHatedIt = tagArray.includes(3) ? "confirmed" : null;
+
+            let animeObject = null;
+            let query = JSON.stringify({query: `anime/${this.props.animeId}`});
+            fetch("/api/v1/anilistapi.json", {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {"Content-Type": "application/json", Accept: "application.json"},
+              body: query
+            })
+            .then(response => response.json())
+            .then(responseData => {
+              animeObject = responseData[0];
+
+              this.setState = {
+                animeObject: animeObject,
+                profiledUser: newProfiledUser,
+                currentUser: newCurrentUser,
+                profiledToWatch: newProfiledToWatch,
+                profiledLovedIt: newProfiledLovedIt,
+                profiledMeh: newProfiledMeh,
+                profiledHatedIt: newProfiledHatedIt,
+                currentToWatch: newCurrentToWatch,
+                currentLovedIt: newCurrentLovedIt,
+                currentMeh: newCurrentMeh,
+                currentHatedIt: newCurrentHatedIt
+              };
+            });
+          });
         });
-        debugger;
-        this.setState = {
-          animeObject: animeObject,
-          profiledUser: newProfiledUser,
-          currentUser: newCurrentUser,
-          profiledToWatch: newProfiledToWatch,
-          profiledLovedIt: newProfiledLovedIt,
-          profiledMeh: newProfiledMeh,
-          profiledHatedIt: newProfiledHatedIt,
-          currentToWatch: newCurrentToWatch,
-          currentLovedIt: newCurrentLovedIt,
-          currentMeh: newCurrentMeh,
-          currentHatedIt: newCurrentHatedIt
-        };
       });
     });
-  }
-
-  getAnimeTags(user) {
-    let arrayOfTags = [];
-
-    let proto_uri="/api/v1/animetagsapi?";
-    proto_uri += `userid=${user.id}&`;
-    proto_uri += `animeid=${this.props.animeId}`;
-    let uri=encodeURI(proto_uri);
-    fetch(uri, { credentials: 'same-origin' })
-    .then(response => response.json())
-    .then(responseData => {
-      let tagArray = responseData.map( (tagObject) => {
-        return tagObject.tag_id;
-      });
-      let newToWatch = tagArray.includes(0) ? "confirmed" : null;
-      let newLovedIt = tagArray.includes(1) ? "confirmed" : null;
-      let newMeh     = tagArray.includes(2) ? "confirmed" : null;
-      let newHatedIt = tagArray.includes(3) ? "confirmed" : null;
-
-      arrayOfTags = [newtoWatch, newLovedIt, newMeh, newHatedIt];
-    });
-    debugger;
-    return arrayOfTags;
   }
 
   handleAnimeTag(id, preference) {
@@ -166,23 +156,26 @@ class AnimePanel extends Component {
 
   render() {
     debugger;
-    let animeContentFragment = (
-      <div>
-        <div className="columns small-2 anime-panel-content">
-          <img className="anime-panel-img" src={this.state.animeObject.image_url_sml} />
-        </div>
+    let animeContentFragment = <div>"Loading..."</div>
+    if (this.state.animeObject) {
+        animeContentFragment = (
+        <div>
+          <div className="columns small-2 anime-panel-content">
+            <img className="anime-panel-img" src={this.state.animeObject.image_url_sml} />
+          </div>
 
-        <div className="columns small-7 anime-panel-content">
-          <p className="animeShowText">
-            <strong>Title (Japanese): </strong>{this.state.animeObject.title_japanese}<br />
-            <strong>Title (Romaji): </strong>{this.state.animeObject.title_romaji}<br />
-            <strong>Title (English): </strong>{this.state.animeObject.title_english}<br />
-            <strong>Description: </strong>{this.state.animeObject.description || <em>(not available)</em>}<br />
-            <strong>Genres: </strong>{this.state.animeObject.genres.join(", ")}<br />
-          </p>
+          <div className="columns small-7 anime-panel-content">
+            <p className="animeShowText">
+              <strong>Title (Japanese): </strong>{this.state.animeObject.title_japanese}<br />
+              <strong>Title (Romaji): </strong>{this.state.animeObject.title_romaji}<br />
+              <strong>Title (English): </strong>{this.state.animeObject.title_english}<br />
+              <strong>Description: </strong>{this.state.animeObject.description || <em>(not available)</em>}<br />
+              <strong>Genres: </strong>{this.state.animeObject.genres.join(", ")}<br />
+            </p>
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
 
     let profiledToWatch = `anime-tile-menu to-watch ${this.state.profiledToWatch}`;
     let profiledLovedIt = `anime-tile-menu loved ${this.state.profiledLovedIt}`;
@@ -286,16 +279,18 @@ class AnimePanel extends Component {
       </ul>
     )
 
-    let tagsFragment = (
+    let tagsFragment = <div>"Loading..."</div>
+
+    if (this.state.currentUser && this.state.currentUser.id !== this.state.profiledUser.id) {
+      tagsFragment = (
       <div className="columns small-3 anime-panel-content">
         {this.state.profiledUser.username}
         {profiledTagsFragment}
         {this.state.currentUser.username}
         {currentTagsFragment}
       </div>
-    )
-
-    if (currentUser.id === profiledUser.id) {
+      )
+    } else if(this.state.currentUser && this.state.currentUser.id === this.state.profiledUser.id) {
       tagsFragment = (
         <div className="columns small-3 anime-panel-content">
           {this.state.currentUser.username}

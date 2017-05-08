@@ -9,23 +9,59 @@ $light-green:   rgba(0, 204, 51, 0.25);
 $light-yellow:  rgba(204, 153, 0, 0.25);
 $light-red:     rgba(204, 0, 0, 0.25);
 $light-grey:    rgba(0, 0, 0, 0.25);
+$off-white:     #fffef6;
+$tab-border:    rgb(170, 170, 170);
 
 .tab {
   cursor: pointer;
 }
 
-.tab.to-watch {
+.anime-panel {
+  border: 1px solid $tab-border;
+  border-radius: 5px;
+  height: 200px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 5px;
+  text-overflow: ellipsis;
+  overflow: scroll;
+}
+
+.ReactTabs__Tab.tab.allTitles,
+.ReactTabs__Tab.tab.allTitles.ReactTabs__Tab--selected {
+  background-color: $off-white;
+}
+
+.ReactTabs__Tab.tab.to-watch,
+.ReactTabs__Tab.tab.to-watch.ReactTabs__Tab--selected {
   background-color: $light-purple;
 }
 
-.tab.loved-it {
+.ReactTabs__Tab.tab.loved-it,
+.ReactTabs__Tab.tab.loved-it.ReactTabs__Tab--selected {
   background-color: $light-green;
 }
 
-.tab.meh {
+.ReactTabs__Tab.tab.meh,
+.ReactTabs__Tab.tab.meh.ReactTabs__Tab--selected {
   background-color: $light-yellow;
 }
 
-.tab-hated-it {
+.ReactTabs__Tab.tab.hated-it,
+.ReactTabs__Tab.tab.hated-it.ReactTabs__Tab--selected {
   background-color: $light-red;
+}
+
+.to-watch.ReactTabs__Tab--selected {
+  background-color: $light-purple;
+}
+
+.img.anime-panel-img {
+  height: 105px;
+  max-width: 75px;
+  margin-top: 47.5px;
+}
+
+.fa.tab {
+  margin-right: 5px;
 }

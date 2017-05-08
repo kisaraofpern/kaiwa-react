@@ -33,13 +33,13 @@ class BioPanel extends Component {
     fetch(uri, { credentials: 'same-origin' })
     .then(response => response.json())
     .then(responseData => {
-      let newProfiledUser = responseData;
+      let newProfiledUser = responseData.user;
 
       fetch("/api/v1/userapi", { credentials: 'same-origin' })
       .then(response => response.json())
       .then(otherResponseData => {
         this.setState({
-          currentUser: otherResponseData,
+          currentUser: otherResponseData.user,
           profiledUser: newProfiledUser
         });
       });
