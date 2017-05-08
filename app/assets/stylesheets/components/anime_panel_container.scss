@@ -1,0 +1,65 @@
+$white:         #ffffff;
+$dark-blue:     #345cab;
+$warm-blue:     #648eca;
+$warm-blue-translucent: rgba(165, 217, 246, 0.36);
+$light-blue:    #a5d9f6;
+$alert-red:     #ca6478;
+$light-purple:  rgba(102, 0, 204, 0.25);
+$light-green:   rgba(0, 204, 51, 0.25);
+$light-yellow:  rgba(204, 153, 0, 0.25);
+$light-red:     rgba(204, 0, 0, 0.25);
+$light-grey:    rgba(0, 0, 0, 0.25);
+$off-white:     #fffef6;
+$tab-border:    rgb(170, 170, 170);
+
+.tab {
+  cursor: pointer;
+}
+
+.anime-panel {
+  border: 1px solid $tab-border;
+  border-radius: 5px;
+  height: 200px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 5px;
+  text-overflow: ellipsis;
+  overflow: scroll;
+}
+
+.anime-panel-content.tags {
+  margin-top: 40px;
+}
+
+.ReactTabs__Tab.tab.allTitles,
+.ReactTabs__Tab.tab.allTitles.ReactTabs__Tab--selected {
+  background-color: $off-white;
+}
+
+.ReactTabs__Tab.tab.to-watch,
+.ReactTabs__Tab.tab.to-watch.ReactTabs__Tab--selected {
+  background-color: $light-purple;
+}
+
+.ReactTabs__Tab.tab.loved-it,
+.ReactTabs__Tab.tab.loved-it.ReactTabs__Tab--selected {
+  background-color: $light-green;
+}
+
+.ReactTabs__Tab.tab.meh,
+.ReactTabs__Tab.tab.meh.ReactTabs__Tab--selected {
+  background-color: $light-yellow;
+}
+
+.ReactTabs__Tab.tab.hated-it,
+.ReactTabs__Tab.tab.hated-it.ReactTabs__Tab--selected {
+  background-color: $light-red;
+}
+
+.to-watch.ReactTabs__Tab--selected {
+  background-color: $light-purple;
+}
+
+.fa.tab {
+  margin-right: 5px;
+}
