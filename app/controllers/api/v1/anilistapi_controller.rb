@@ -15,7 +15,6 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
   attr_accessor :access_token, :access_expiration
 
   def index
-    binding.pry
     # if @access_token does NOT exist or
     # current time is after @access_expiration,
     # get a new access token.
@@ -57,7 +56,6 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
       uri.query = URI.encode_www_form(params)
       res = Net::HTTP.get_response(uri)
       data = JSON.parse(res.body)
-      binding.pry
       filtered_titles = data[0, 12]
 
       render :json => filtered_titles
