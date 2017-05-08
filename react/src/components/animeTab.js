@@ -14,7 +14,8 @@ class AnimeTab extends Component {
   componentWillMount() {
     //determine the currentUser & set Tags
     let thisPage = window.location.href;
-    let userid = thisPage.slice(28, thisPage.length);
+    let lastSlash = thisPage.lastIndexOf("/");
+    let userid = thisPage.slice(lastSlash+1, thisPage.length);
 
     fetch(`/api/v1/userapi?userid=${userid}`, { credentials: 'same-origin' })
     .then(response => response.json())
