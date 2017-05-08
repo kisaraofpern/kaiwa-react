@@ -121,11 +121,11 @@ class AnimeTab extends Component {
       return (
           <div className="row">
             <div className="anime-panel">
-              <div className="columns small-2 anime-panel-content">
+              <div className="columns small-1 anime-panel-content">
                 <img className="anime-panel-img" src={anime.object.image_url_med} />
               </div>
 
-              <div className="columns small-9 anime-panel-content anime-panel-scroll">
+              <div className="columns small-10 anime-panel-content anime-panel-scroll">
                 <p className="animeShowText">
                   <strong>Title (Japanese): </strong>{anime.object.title_japanese}<br />
                   <strong>Title (Romaji): </strong>{anime.object.title_romaji}<br />
