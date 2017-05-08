@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import update from 'immutability-helper';
+import FontAwesome from 'react-fontawesome';
 
 class AnimeTab extends Component {
   constructor(props) {
@@ -8,6 +8,7 @@ class AnimeTab extends Component {
       currentUser: null,
       animeObjectsList: []
     };
+    this.handleAnimeTag = this.handleAnimeTag.bind(this);
   }
 
   componentWillMount() {
@@ -58,13 +59,63 @@ class AnimeTab extends Component {
       headers: { "Content-Type": "application/json",
                  "Accept": "application/json" },
       body: payload
+    })
+    .then(() => {
+      fetch(`/api/v1/userapi?userid=${this.state.currentUser.id}`, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(responseData => {
+        let newCurrentUser = responseData.user;
+        let currentUserTagData = responseData.tags;
+        let animeArray = [];
+        switch(this.props.filter) {
+          case "allTitles":
+            animeArray = responseData.allAnime;
+            break;
+          case "toWatch":
+            animeArray = responseData.toWatch;
+            break;
+          case "lovedIt":
+            animeArray = responseData.lovedIt;
+            break;
+          case "meh":
+            animeArray = responseData.meh;
+            break;
+          case "hatedIt":
+            animeArray = responseData.hatedIt;
+            break;
+        }
+        this.setState({
+          currentUser: newCurrentUser,
+          animeObjectsList: animeArray
+        });
+      });
     });
   }
 
   render() {
     let animePanelFragment = this.state.animeObjectsList.map( (anime) => {
-      
+      let toWatchConfirm = anime.animeTags.includes(0) ? "confirmed" : null;
+      let lovedItConfirm = anime.animeTags.includes(1) ? "confirmed" : null;
+      let mehConfirm = anime.animeTags.includes(2) ? "confirmed" : null;
+      let hatedItConfirm = anime.animeTags.includes(3) ? "confirmed" : null;
 
+      let toWatchDot = `dot to-watch ${toWatchConfirm}`;
+      let lovedItDot = `dot loved ${lovedItConfirm}`;
+      let mehDot     = `dot meh ${mehConfirm}`;
+      let hatedItDot = `dot hated ${hatedItConfirm}`;
+
+      let handleToWatch = () => {
+        this.handleAnimeTag(anime.object.id, 0);
+      };
+      let handleLovedIt = () => {
+        this.handleAnimeTag(anime.object.id, 1);
+      };
+      let handleMeh = () => {
+        this.handleAnimeTag(anime.object.id, 2);
+      };
+      let handleHatedIt = () => {
+        this.handleAnimeTag(anime.object.id, 3);
+      };
 
       return (
           <div className="row">
@@ -73,7 +124,7 @@ class AnimeTab extends Component {
                 <img className="anime-panel-img" src={anime.object.image_url_med} />
               </div>
 
-              <div className="columns small-7 anime-panel-content anime-panel-scroll">
+              <div className="columns small-9 anime-panel-content anime-panel-scroll">
                 <p className="animeShowText">
                   <strong>Title (Japanese): </strong>{anime.object.title_japanese}<br />
                   <strong>Title (Romaji): </strong>{anime.object.title_romaji}<br />
@@ -82,8 +133,41 @@ class AnimeTab extends Component {
                   <strong>Genres: </strong>{anime.object.genres.join(", ")}<br />
                 </p>
               </div>
-              <div className="columns small-3 anime-panel-content">
-                Tags.
+              <div className="columns small-1 anime-panel-content tags">
+                <ul className="menu anime-tile-menu-list vertical">
+                  <li onClick={handleToWatch}>
+                    <FontAwesome
+                      className={toWatchDot}
+                      name='flag'
+                      size='2x'
+                      style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                    />
+                  </li>
+                  <li onClick={handleLovedIt}>
+                    <FontAwesome
+                      className={lovedItDot}
+                      name='smile-o'
+                      size='2x'
+                      style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                    />
+                  </li>
+                  <li onClick={handleMeh}>
+                    <FontAwesome
+                      className={mehDot}
+                      name='meh-o'
+                      size='2x'
+                      style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                    />
+                  </li>
+                  <li onClick={handleHatedIt}>
+                    <FontAwesome
+                    className={hatedItDot}
+                    size='2x'
+                    name='frown-o'
+                    style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+                    />
+                  </li>
+                </ul>
               </div>
             </div>
             <br />

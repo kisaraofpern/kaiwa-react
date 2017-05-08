@@ -27,6 +27,10 @@ $tab-border:    rgb(170, 170, 170);
   overflow: scroll;
 }
 
+.anime-panel-content.tags {
+  margin-top: 40px;
+}
+
 .ReactTabs__Tab.tab.allTitles,
 .ReactTabs__Tab.tab.allTitles.ReactTabs__Tab--selected {
   background-color: $off-white;
@@ -54,12 +58,6 @@ $tab-border:    rgb(170, 170, 170);
 
 .to-watch.ReactTabs__Tab--selected {
   background-color: $light-purple;
-}
-
-.img.anime-panel-img {
-  height: 105px;
-  max-width: 75px;
-  margin-top: 47.5px;
 }
 
 .fa.tab {
