@@ -27,7 +27,8 @@ class BioPanel extends Component {
 
   componentDidMount() {
     let thisPage = window.location.href;
-    let userid = thisPage.slice(28, thisPage.length);
+    let lastSlash = thisPage.lastIndexOf("/");
+    let userid = thisPage.slice(lastSlash+1, thisPage.length);
 
     let uri=`/api/v1/userapi?userid=${userid}`;
     fetch(uri, { credentials: 'same-origin' })
