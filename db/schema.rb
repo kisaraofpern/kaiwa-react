@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509011727) do
+ActiveRecord::Schema.define(version: 20170509162541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "animes", force: :cascade do |t|
+    t.integer  "anilist_id",       null: false
+    t.string   "title_romaji",     null: false
+    t.string   "title_english",    null: false
+    t.string   "title_japanese",   null: false
+    t.string   "genres"
+    t.string   "image_url_sml"
+    t.string   "image_url_med"
+    t.string   "image_url_lge"
+    t.string   "image_url_banner"
+    t.string   "description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "animetags", force: :cascade do |t|
     t.integer  "anilist_id", null: false
