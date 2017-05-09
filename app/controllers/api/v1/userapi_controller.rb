@@ -32,7 +32,7 @@ class Api::V1::UserapiController < Api::V1::BaseController
       meh      = get_anime(meh_list)
       hated_it  = get_anime(hated_it_list)
 
-      top_matches_list = @user.matches.order('match_quotient DESC').limit(10);
+      top_matches_list = @user.matches.order('match_quotient DESC').limit(10)
       top_matches = get_matches(top_matches_list)
 
       render :json => {
@@ -65,17 +65,15 @@ class Api::V1::UserapiController < Api::V1::BaseController
 
         query = anilist_id.to_s
 
-        uri = URI("https://anilist.co/api/anime/"+query)
+        uri = URI("https://anilist.co/api/anime/" + query)
         params = { access_token: @access_token }
         uri.query = URI.encode_www_form(params)
         res = Net::HTTP.get_response(uri)
         data = JSON.parse(res.body)
 
-        if data["description"]
-          newDescription = data["description"].gsub("<br>", "")
-        else
-          newDescription = "not available"
-        end
+        new_description = (data["description"]) ?
+          new_description = data["description"].gsub("<br>", "") :
+          new_description = "not available"
 
         Anime.create(
           anilist_id: data["id"],

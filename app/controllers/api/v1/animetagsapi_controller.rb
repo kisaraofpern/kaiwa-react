@@ -39,33 +39,29 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
       user_id,
       anilist_id,
       tag_id
-    ]);
+      ])
     if existingTag.size === 0
       Animetag.create(
         user_id: user_id,
         anilist_id: anilist_id,
         tag_id: tag_id
       )
-      existingAnime = Anime.where(["anilist_id = ?", anilist_id])
-      if existingAnime.size === 0
+      existing_anime = Anime.where(["anilist_id = ?", anilist_id])
+      if existing_anime.size === 0
         if !@access_token || DateTime.new(@access_expiration) < DateTime.now
           get_access_token
         end
 
         query = anilist_id.to_s
 
-        uri = URI("https://anilist.co/api/anime/"+query)
+        uri = URI("https://anilist.co/api/anime/" + query)
         params = { access_token: @access_token }
         uri.query = URI.encode_www_form(params)
         data = get_response(uri)
 
-        if data["description"]
-          newDescription = data["description"].gsub("<br>", "")
-        else
-          newDescription = "not available"
-        end
-
-        binding.pry
+        new_description = (data["description"]) ?
+          new_description = data["description"].gsub("<br>", "") :
+          new_description = "not available"
 
         Anime.create(
           anilist_id: data["id"],
@@ -77,7 +73,7 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
           image_url_med: data["image_url_med"],
           image_url_lge: data["image_url_lge"],
           image_url_banner: data["image_url_banner"],
-          description: newDescription
+          description: new_description
         )
       end
     else
@@ -95,7 +91,7 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
 
   def get_response(uri)
     res = Net::HTTP.get_response(uri)
-    data = JSON.parse(res.body)
+    JSON.parse(res.body)
   end
 
   def get_access_token
