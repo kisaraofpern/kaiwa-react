@@ -106,16 +106,16 @@ class AnimeTab extends Component {
       let hatedItDot = `dot hated ${hatedItConfirm}`;
 
       let handleToWatch = () => {
-        this.handleAnimeTag(anime.object.id, 0);
+        this.handleAnimeTag(anime.object.anilist_id, 0);
       };
       let handleLovedIt = () => {
-        this.handleAnimeTag(anime.object.id, 1);
+        this.handleAnimeTag(anime.object.anilist_id, 1);
       };
       let handleMeh = () => {
-        this.handleAnimeTag(anime.object.id, 2);
+        this.handleAnimeTag(anime.object.anilist_id, 2);
       };
       let handleHatedIt = () => {
-        this.handleAnimeTag(anime.object.id, 3);
+        this.handleAnimeTag(anime.object.anilist_id, 3);
       };
 
       return (
@@ -131,7 +131,6 @@ class AnimeTab extends Component {
                   <strong>Title (Romaji): </strong>{anime.object.title_romaji}<br />
                   <strong>Title (English): </strong>{anime.object.title_english}<br />
                   <strong>Description: </strong>{anime.object.description || <em>(not available)</em>}<br />
-                  <strong>Genres: </strong>{anime.object.genres.join(", ")}<br />
                 </p>
               </div>
               <div className="columns small-1 anime-panel-content tags">

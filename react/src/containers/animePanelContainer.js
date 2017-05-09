@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import AnimeTab from '../components/animeTab';
+import UserTab from '../components/userTab';
 import FontAwesome from 'react-fontawesome';
 
 class AnimePanelContainer extends Component {
@@ -47,6 +48,14 @@ class AnimePanelContainer extends Component {
             />
              Hated It
           </Tab>
+          <Tab className='tab matches'>
+            <FontAwesome
+              className='tab matches'
+              name='handshake-o'
+              style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+            />
+             Matches
+          </Tab>
         </TabList>
 
         <TabPanel className='tab allTitles'>
@@ -72,6 +81,10 @@ class AnimePanelContainer extends Component {
         <TabPanel className='tab hated-it'>
           <AnimeTab className="tab hated-it"
             filter="hatedIt"
+          />
+        </TabPanel>
+        <TabPanel className ="tab matches">
+          <UserTab className="tab matches"
           />
         </TabPanel>
       </Tabs>
