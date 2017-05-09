@@ -32,7 +32,7 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
   end
 
   def create
-    if !@access_token || @access_expiration < DateTime.now
+    if !@access_token || DateTime.new(@access_expiration) < DateTime.now
       get_access_token
     end
 
@@ -48,7 +48,7 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
       uri.query = URI.encode_www_form(params)
       res = Net::HTTP.get_response(uri)
       data = JSON.parse(res.body)
-      filtered_titles = data[0, 12]
+      filtered_titles = data[0, 48]
 
       render :json => filtered_titles
     elsif query.include?("search")

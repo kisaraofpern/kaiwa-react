@@ -10,10 +10,10 @@ class ProfileContainer extends Component {
   render() {
     return (
       <div className="row profile-box">
-        <div className="columns small-12 medium-2">
+        <div className="columns small-12 medium-3">
           <BioPanel/>
         </div>
-        <div className="columns small-12 medium-10">
+        <div className="columns small-12 medium-9">
           <AnimePanelContainer/>
         </div>
       </div>

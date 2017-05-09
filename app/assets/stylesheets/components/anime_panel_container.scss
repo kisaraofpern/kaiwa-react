@@ -27,6 +27,22 @@ $tab-border:    rgb(170, 170, 170);
   overflow: scroll;
 }
 
+.user-panel {
+  border: 1px solid $tab-border;
+  border-radius: 5px;
+  height: 100px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 5px;
+  text-overflow: ellipsis;
+  overflow: scroll;
+}
+
+.user-panel-content.tags {
+  margin-top: 30px;
+}
+
+
 .anime-panel-content.tags {
   margin-top: 40px;
 }
