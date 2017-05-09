@@ -22,7 +22,6 @@ gem 'devise'
 gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
 gem "fog"
-gem "delayed_job_active_record"
 
 group :development, :test do
   gem 'byebug', platform: :mri
