@@ -131,7 +131,6 @@ class AnimeTab extends Component {
                   <strong>Title (Romaji): </strong>{anime.object.title_romaji}<br />
                   <strong>Title (English): </strong>{anime.object.title_english}<br />
                   <strong>Description: </strong>{anime.object.description || <em>(not available)</em>}<br />
-                  <strong>Genres: </strong>{anime.object.genres.join(", ")}<br />
                 </p>
               </div>
               <div className="columns small-1 anime-panel-content tags">
