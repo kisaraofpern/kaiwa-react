@@ -46,7 +46,6 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
         anilist_id: anilist_id,
         tag_id: tag_id
       )
-
       existingAnime = Anime.where(["anilist_id = ?", anilist_id])
       if existingAnime.size === 0
         if !@access_token || DateTime.new(@access_expiration) < DateTime.now
@@ -65,6 +64,8 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
         else
           newDescription = "not available"
         end
+
+        binding.pry
 
         Anime.create(
           anilist_id: data["id"],
