@@ -48,7 +48,7 @@ class User < ApplicationRecord
 
       viewing_multiplier = 1 - (titles_in_common/unique_titles)
 
-      final_match_quotient = (match_quotient * viewing_multiplier*100)
+      final_match_quotient = (match_quotient * viewing_multiplier * 100)
     end
     final_match_quotient
   end

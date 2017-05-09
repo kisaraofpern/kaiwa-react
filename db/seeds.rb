@@ -52,7 +52,7 @@ end
 random_anime_ids.each do |id|
   query = id.to_s
 
-  uri = URI("https://anilist.co/api/anime/"+query)
+  uri = URI("https://anilist.co/api/anime/" + query)
   params = { access_token: @access_token }
   uri.query = URI.encode_www_form(params)
   res = Net::HTTP.get_response(uri)
@@ -71,10 +71,9 @@ random_anime_ids.each do |id|
     image_url_banner:
     data["image_url_banner"],
     description:
-    data["description"].gsub("<br>","")
+    data["description"].gsub("<br>", "")
   )
 end
-
 
 20.times do |index|
   User.create(
@@ -85,7 +84,7 @@ end
 end
 
 500.times do
-  user_index = 1+rand(20)
+  user_index = 1 + rand(20)
   anilist_index = rand(40)
   tag_id = rand(4)
 
