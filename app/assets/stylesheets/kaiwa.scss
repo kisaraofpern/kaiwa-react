@@ -72,6 +72,13 @@ h6 {
   float: left;
 }
 
+.edit-profile {
+  color: $link-blue;
+  &:hover {
+    border-bottom: 3px solid $warm-blue;
+  }
+}
+
 ul.align-right {
   float: right;
 

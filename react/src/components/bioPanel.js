@@ -49,7 +49,6 @@ class BioPanel extends Component {
 
   render() {
     let username="", avatar = "", email = "", created_at = "", full_date="";
-    debugger;
     if (this.state.profiledUser) {
       username = this.state.profiledUser.username;
       avatar = this.state.profiledUser.avatar.medium.url || "http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-business-bear.png";
@@ -63,7 +62,7 @@ class BioPanel extends Component {
         <h3>{username}</h3>
         <img src={avatar} />
         <p><strong>Created:</strong> {full_date}</p>
-        <a href="/users/edit">Edit Profile</a>
+        <strong><a className="edit-profile" href="/users/edit">Edit Profile</a></strong>
       </div>
     );
   }
