@@ -14,7 +14,7 @@ class Match < ActiveRecord::Base
   end
 
   def has_inverse?
-    self.class,exists?(inverse_match_options)
+    self.class.exists?(inverse_match_options)
   end
 
   def inverse_match_options
@@ -22,6 +22,8 @@ class Match < ActiveRecord::Base
   end
 
   def inverse_match_options
-    { matched_user_id: user_id, user_id: matched_user_id }
+    { matched_user_id: user_id,
+      user_id: matched_user_id,
+      match_quotient: match_quotient }
   end
 end

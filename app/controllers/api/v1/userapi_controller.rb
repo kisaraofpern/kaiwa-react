@@ -38,6 +38,8 @@ class Api::V1::UserapiController < Api::V1::BaseController
       meh      = get_anime(meh_list)
       hated_it  = get_anime(hated_it_list)
 
+      top_matches = @user.matches.order("matches_quotient DESC").limit(10);
+
       render :json => {
         user: @user,
         tags: @user.animetags,
@@ -46,6 +48,7 @@ class Api::V1::UserapiController < Api::V1::BaseController
         lovedIt: loved_it,
         meh: meh,
         hatedIt: hated_it
+        matches: top_matches
       }
     end
   end

@@ -5,14 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)w
-random_names = [
-  "GigaStrength", "TechPill", "tree_eater", "fire_spawn", "WebTool",
-  "couch_chiller", "DeathDog", "junkTop", "awesometrucker", "BinaryMan",
-  "sniperxgod", "Sharpcharm", "idontknow", "alexander_hamilton", "BooTeeFool",
-  "fried+sushi", "superxgrass", "Lunatick", "spamsalot", "GoogleCat",
-  "going_to_the_dogs", "true_dat", "otaku", "in_the_heights", "i_need_cafe"
-]
-
+# random_names = [
+#   "GigaStrength", "TechPill", "tree_eater", "fire_spawn", "WebTool",
+#   "couch_chiller", "DeathDog", "junkTop", "awesometrucker", "BinaryMan",
+#   "sniperxgod", "Sharpcharm", "idontknow", "alexander_hamilton", "BooTeeFool",
+#   "fried+sushi", "superxgrass", "Lunatick", "spamsalot", "GoogleCat",
+#   "going_to_the_dogs", "true_dat", "otaku", "in_the_heights", "i_need_cafe"
+# ]
+#
 random_anime_ids = [
   20680, 21177, 21196, 21197, 21236, 21238, 21241, 21265, 21284, 21290, 21291,
   21296, 21297, 21300, 21302, 21311, 21315, 21316, 21321, 21334, 21355, 21357,
@@ -38,4 +38,20 @@ end
     tag_id: tag_id,
     user_id: user_index
   )
+end
+
+Populated matches
+20.times do |index|
+  i = index + 1
+  j = index + 2
+  for k in j..20
+    user_one = User.find(i)
+    user_two = User.find(k)
+    match_quotient = user_one.get_match_quotient(user_two)
+    Match.create(
+      user: user_one,
+      matched_user: user_two,
+      match_quotient: match_quotient
+    )
+  end
 end
