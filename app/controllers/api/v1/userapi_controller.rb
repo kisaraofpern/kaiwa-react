@@ -38,7 +38,8 @@ class Api::V1::UserapiController < Api::V1::BaseController
       meh      = get_anime(meh_list)
       hated_it  = get_anime(hated_it_list)
 
-      top_matches = @user.matches.order("matches_quotient DESC").limit(10);
+      top_matches_list = @user.matches.order('match_quotient DESC').limit(10);
+      top_matches = get_matches(top_matches_list)
 
       render :json => {
         user: @user,
@@ -47,7 +48,7 @@ class Api::V1::UserapiController < Api::V1::BaseController
         toWatch: to_watch,
         lovedIt: loved_it,
         meh: meh,
-        hatedIt: hated_it
+        hatedIt: hated_it,
         matches: top_matches
       }
     end
@@ -88,5 +89,16 @@ class Api::V1::UserapiController < Api::V1::BaseController
       anime_list.push(anime_hash)
     end
     anime_list
+  end
+
+  def get_matches(list)
+    matches_list = []
+    list.each do |match|
+      match_hash = {}
+      match_hash["user"] = match.matched_user
+      match_hash["quotient"] = match.match_quotient
+      matches_list.push(match_hash)
+    end
+    matches_list
   end
 end
