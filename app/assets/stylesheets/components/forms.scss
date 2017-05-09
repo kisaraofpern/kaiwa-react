@@ -18,6 +18,10 @@ $text-shadow: 2px 2px 10px $dark-blue;
   padding: 2em;
   width: 50%;
 
+  div#error_explanation h2 {
+    display: none;
+  }
+
   h2 {
     text-align: center;
     margin-top: -20px;

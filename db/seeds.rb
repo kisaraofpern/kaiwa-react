@@ -1,3 +1,4 @@
+require 'date'
 require 'net/http'
 require 'json'
 require 'date'
@@ -16,7 +17,6 @@ Dotenv.load
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)w
-
 random_names = [
   "GigaStrength", "TechPill", "tree_eater", "fire_spawn", "WebTool",
   "couch_chiller", "DeathDog", "junkTop", "awesometrucker", "BinaryMan",

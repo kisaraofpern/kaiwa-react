@@ -11,7 +11,7 @@ class AnimeTab extends Component {
     this.handleAnimeTag = this.handleAnimeTag.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     //determine the currentUser & set Tags
     let thisPage = window.location.href;
     let lastSlash = thisPage.lastIndexOf("/");

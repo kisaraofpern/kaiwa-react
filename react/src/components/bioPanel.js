@@ -51,7 +51,7 @@ class BioPanel extends Component {
     let username="", avatar = "", email = "", created_at = "", full_date="";
     if (this.state.profiledUser) {
       username = this.state.profiledUser.username;
-      avatar = this.state.profiledUser.avatar.url || "http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-business-bear.png";
+      avatar = this.state.profiledUser.avatar.medium.url || "http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-business-bear.png";
       email = this.state.profiledUser.email;
       created_at = new Date(this.state.profiledUser.created_at);
       full_date = this.formatDate(created_at);
@@ -62,6 +62,7 @@ class BioPanel extends Component {
         <h3>{username}</h3>
         <img src={avatar} />
         <p><strong>Created:</strong> {full_date}</p>
+        <strong><a className="edit-profile" href="/users/edit">Edit Profile</a></strong>
       </div>
     );
   }
