@@ -16,14 +16,14 @@ Dotenv.load
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)w
-# random_names = [
-#   "GigaStrength", "TechPill", "tree_eater", "fire_spawn", "WebTool",
-#   "couch_chiller", "DeathDog", "junkTop", "awesometrucker", "BinaryMan",
-#   "sniperxgod", "Sharpcharm", "idontknow", "alexander_hamilton", "BooTeeFool",
-#   "fried+sushi", "superxgrass", "Lunatick", "spamsalot", "GoogleCat",
-#   "going_to_the_dogs", "true_dat", "otaku", "in_the_heights", "i_need_cafe"
-# ]
-#
+
+random_names = [
+  "GigaStrength", "TechPill", "tree_eater", "fire_spawn", "WebTool",
+  "couch_chiller", "DeathDog", "junkTop", "awesometrucker", "BinaryMan",
+  "sniperxgod", "Sharpcharm", "idontknow", "alexander_hamilton", "BooTeeFool",
+  "fried+sushi", "superxgrass", "Lunatick", "spamsalot", "GoogleCat",
+  "going_to_the_dogs", "true_dat", "otaku", "in_the_heights", "i_need_cafe"
+]
 
 ## Seed database with anime.
 random_anime_ids = [
@@ -57,7 +57,7 @@ random_anime_ids.each do |id|
   uri.query = URI.encode_www_form(params)
   res = Net::HTTP.get_response(uri)
   data = JSON.parse(res.body)
-  
+
   Anime.create(
     anilist_id: data["id"],
     title_romaji: data["title_romaji"],
@@ -76,38 +76,37 @@ random_anime_ids.each do |id|
 end
 
 
-# 20.times do |index|
-#   User.create(
-#     username: random_names[index],
-#     email: "ward#{index}@ward.com",
-#     password: "password"
-#   )
-# end
-#
-# 500.times do
-#   user_index = 1+rand(20)
-#   anilist_index = rand(40)
-#   tag_id = rand(4)
-#
-#   Animetag.create(
-#     anilist_id: random_anime_ids[anilist_index],
-#     tag_id: tag_id,
-#     user_id: user_index
-#   )
-# end
-#
-# Populated matches
-# 20.times do |index|
-#   i = index + 1
-#   j = index + 2
-#   for k in j..20
-#     user_one = User.find(i)
-#     user_two = User.find(k)
-#     match_quotient = user_one.get_match_quotient(user_two)
-#     Match.create(
-#       user: user_one,
-#       matched_user: user_two,
-#       match_quotient: match_quotient
-#     )
-#   end
-# end
+20.times do |index|
+  User.create(
+    username: random_names[index],
+    email: "ward#{index}@ward.com",
+    password: "password"
+  )
+end
+
+500.times do
+  user_index = 1+rand(20)
+  anilist_index = rand(40)
+  tag_id = rand(4)
+
+  Animetag.create(
+    anilist_id: random_anime_ids[anilist_index],
+    tag_id: tag_id,
+    user_id: user_index
+  )
+end
+
+20.times do |index|
+  i = index + 1
+  j = index + 2
+  for k in j..20
+    user_one = User.find(i)
+    user_two = User.find(k)
+    match_quotient = user_one.get_match_quotient(user_two)
+    Match.create(
+      user: user_one,
+      matched_user: user_two,
+      match_quotient: match_quotient
+    )
+  end
+end

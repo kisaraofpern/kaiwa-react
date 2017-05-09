@@ -39,7 +39,7 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
       user_id,
       anilist_id,
       tag_id
-    ])
+    ]);
     if existingTag.size === 0
       Animetag.create(
         user_id: user_id,
@@ -49,7 +49,7 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
 
       existingAnime = Anime.where(["anilist_id = ?", anilist_id])
       if existingAnime.size === 0
-        if !@access_token || @access_expiration < DateTime.now
+        if !@access_token || DateTime.new(@access_expiration) < DateTime.now
           get_access_token
         end
 
@@ -60,6 +60,12 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
         uri.query = URI.encode_www_form(params)
         data = get_response(uri)
 
+        if data["description"]
+          newDescription = data["description"].gsub("<br>", "")
+        else
+          newDescription = "not available"
+        end
+
         Anime.create(
           anilist_id: data["id"],
           title_romaji: data["title_romaji"],
@@ -68,12 +74,9 @@ class Api::V1::AnimetagsapiController < Api::V1::BaseController
           genres: data["genres"],
           image_url_sml: data["image_url_sml"],
           image_url_med: data["image_url_med"],
-          image_url_lge:
-          data["image_url_lge"],
-          image_url_banner:
-          data["image_url_banner"],
-          description:
-          data["description"].gsub("<br>","")
+          image_url_lge: data["image_url_lge"],
+          image_url_banner: data["image_url_banner"],
+          description: newDescription
         )
       end
     else

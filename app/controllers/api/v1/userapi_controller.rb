@@ -1,5 +1,16 @@
+require 'net/http'
+require 'json'
+require 'date'
+require 'dotenv'
+require 'uri'
+
+Dotenv.load
+
 class Api::V1::UserapiController < Api::V1::BaseController
   skip_before_action :verify_authenticity_token, only: [:index, :create]
+
+  @access_token = nil
+  @access_expiration = nil
 
   def index
     if !params["userid"]
@@ -39,11 +50,47 @@ class Api::V1::UserapiController < Api::V1::BaseController
 
   def create; end
 
+  private
+
   def get_anime(list)
     anime_list = []
     list.each do |anilist_id|
       anime_hash = {}
+
       anime = Anime.find_by anilist_id: anilist_id
+      if !anime
+        if !@access_token || DateTime.new(@access_expiration) < DateTime.now
+          get_access_token
+        end
+
+        query = anilist_id.to_s
+
+        uri = URI("https://anilist.co/api/anime/"+query)
+        params = { access_token: @access_token }
+        uri.query = URI.encode_www_form(params)
+        res = Net::HTTP.get_response(uri)
+        data = JSON.parse(res.body)
+
+        if data["description"]
+          newDescription = data["description"].gsub("<br>", "")
+        else
+          newDescription = "not available"
+        end
+
+        Anime.create(
+          anilist_id: data["id"],
+          title_romaji: data["title_romaji"],
+          title_english: data["title_english"],
+          title_japanese: data["title_japanese"],
+          genres: data["genres"],
+          image_url_sml: data["image_url_sml"],
+          image_url_med: data["image_url_med"],
+          image_url_lge: data["image_url_lge"],
+          image_url_banner: data["image_url_banner"],
+          description: newDescription
+        )
+      end
+
       anime_hash["object"] = anime
       anime_hash["animeTags"] =
         Animetag.where("user_id=1 and anilist_id=#{anilist_id}").pluck(:tag_id)
@@ -61,5 +108,19 @@ class Api::V1::UserapiController < Api::V1::BaseController
       matches_list.push(match_hash)
     end
     matches_list
+  end
+
+  def get_access_token
+    # POST method to AniList for access token
+    uri = URI("https://anilist.co/api/auth/access_token")
+    res = Net::HTTP.post_form(
+      uri,
+      grant_type:    "client_credentials",
+      client_id:     ENV["ANILIST_CLIENT_ID"],
+      client_secret: ENV["ANILIST_CLIENT_SECRET"]
+    )
+    data = JSON.parse(res.body)
+    @access_token = data["access_token"]
+    @access_expiration = data["expires"]
   end
 end

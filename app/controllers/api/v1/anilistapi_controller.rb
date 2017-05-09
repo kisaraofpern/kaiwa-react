@@ -32,7 +32,7 @@ class Api::V1::AnilistapiController < Api::V1::BaseController
   end
 
   def create
-    if !@access_token || @access_expiration < DateTime.now
+    if !@access_token || DateTime.new(@access_expiration) < DateTime.now
       get_access_token
     end
 
