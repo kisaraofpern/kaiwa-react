@@ -33,10 +33,10 @@ class User < ApplicationRecord
     common_meh = meh_list.size - (meh_list - friend_meh_list).size
     common_hated_it = hated_it_list.size - (hated_it_list - friend_hated_it_list).size
 
-    match_quotient = (0.1*common_to_watch +
-                      0.4*common_loved_it +
-                      0.1*common_meh +
-                      0.4*common_hated_it
+    match_quotient = (0.1 * common_to_watch +
+                      0.4 * common_loved_it +
+                      0.1 * common_meh +
+                      0.4 * common_hated_it
                      )/(common_to_watch+common_loved_it+common_meh+common_hated_it)
 
     if !match_quotient.to_f.nan?
@@ -46,7 +46,7 @@ class User < ApplicationRecord
 
       unique_titles = (all_anime_list.size + friend_all_anime_list.size - titles_in_common)
 
-      viewing_multiplier = 1 - (titles_in_common/unique_titles)
+      viewing_multiplier = 1 - (titles_in_common / unique_titles)
 
       final_match_quotient = (match_quotient * viewing_multiplier * 100)
     end
