@@ -46,7 +46,7 @@ class User < ApplicationRecord
 
       unique_titles = (all_anime_list.size + friend_all_anime_list.size - titles_in_common)
 
-      viewing_multiplier = 1 - (titles_in_common/unique_titles)
+      viewing_multiplier = 1 - (titles_in_common / unique_titles)
 
       final_match_quotient = (match_quotient * viewing_multiplier * 100)
     end
