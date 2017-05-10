@@ -22,6 +22,7 @@ gem 'devise'
 gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
 gem "fog"
+gem "redis", "~> 3.0"
 
 group :development, :test do
   gem 'byebug', platform: :mri

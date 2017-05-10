@@ -11,6 +11,9 @@ class User < ApplicationRecord
   has_many :matches
   has_many :matched_users, through: :matches, dependent: :destroy
 
+  has_many :chats
+  has_many :messages, through :chats
+
   def get_match_quotient(other_user)
     final_match_quotient = 0
 
