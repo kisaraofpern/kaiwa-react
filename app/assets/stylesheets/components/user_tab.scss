@@ -18,3 +18,42 @@ $red: #FF0000;
   margin-right: 10px;
   color: $red;
 }
+
+.modalSticky {
+  height: 100%;
+  width: 100%;
+}
+
+div.menu.chatModal {
+  padding-bottom: 50px;
+}
+
+.chatModalMessages {
+  height: 60%;
+  margin-bottom: 20px;
+  overflow: scroll;
+  width: 100%;
+}
+
+.chatModalMessagesContent {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.chatModalHeader {
+  height: 10%;
+  width: 100%;
+}
+
+.chatModalFooter {
+  height: 10%;
+  width: 100%;
+}
+
+input.button.secondary.message {
+  margin-bottom: 1rem;
+}
+
+.ReactModal__Body--open {
+  overflow-y: hidden;
+}

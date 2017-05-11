@@ -1,12 +1,13 @@
 const customStyles = {
   overlay : {
     position          : 'fixed',
-    top               : "60%",
+    top               : "70%",
     left              : "15%",
     right             : "15%",
-    bottom            : "0%",
+    bottom            : "2%",
     borderRadius      : '10px',
-    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+    backgroundColor   : 'rgba(255, 255, 255, 0.75)',
+    height            : "30%"
   },
   content : {
     position                   : 'absolute',
@@ -20,7 +21,7 @@ const customStyles = {
     WebkitOverflowScrolling    : 'touch',
     borderRadius               : '10px',
     outline                    : 'none',
-    padding                    : '20px'
+    padding                    : '5px'
 
   }
 };

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome';
 import customStyles from '../constants/chatModalStyle';
+import ChatModal from './chatModal';
 
 class UserPanel extends Component {
   constructor(props) {
@@ -9,11 +10,15 @@ class UserPanel extends Component {
     this.state = {
       chatObject: null,
       isModalOpen: false,
+      messages: [],
+      message: null
     };
     this.formatDate = this.formatDate.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleChatButton = this.handleChatButton.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
   }
 
   formatDate(date) {
@@ -37,6 +42,14 @@ class UserPanel extends Component {
 
   closeModal() {
     this.setState({ isModalOpen: false });
+  }
+
+  onChange() {
+    
+  }
+
+  handleMessageSubmit() {
+
   }
 
   handleChatButton(chatPartnerId) {
@@ -117,9 +130,10 @@ class UserPanel extends Component {
           style={customStyles}
           contentLabel="Chat Modal"
         >
-          <h4>Chat with {this.props.matched_user.username}</h4>
-          <button onClick={this.closeModal}>close</button>
-          <div id="">I am a modal</div>
+          <ChatModal
+            matched_user={this.props.matched_user}
+            closeModal={this.closeModal}
+          />
         </Modal>
       </div>
     )
