@@ -3,7 +3,7 @@ class Chat < ApplicationRecord
   belongs_to :chat_partner, class_name: "User"
   belongs_to :chat_starter, class_name: "User"
 
-  has_many :messages, dependent: destroy
+  has_many :messages, dependent: :destroy
 
   after_create :create_inverse, unless: :has_inverse?
   after_destroy :destroy_inverses, if: :has_inverse?
@@ -25,8 +25,8 @@ class Chat < ApplicationRecord
   end
 
   def inverse_match_options
-    { chat_partner: user_id,
+    { chat_partner_id: user_id,
       user_id: chat_partner_id,
-      chat_starter: chat_starter }
+      chat_starter_id: chat_starter_id }
   end
 end

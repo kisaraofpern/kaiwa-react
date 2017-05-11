@@ -1,0 +1,20 @@
+$red: #FF0000;
+
+.user-panel {
+  cursor: default;
+  overflow: hidden;
+}
+
+.user-panel-quotient {
+  display: inline;
+}
+
+.user-panel-chat-button {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.user-panel-heart {
+  margin-right: 10px;
+  color: $red;
+}

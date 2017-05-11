@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import BioPanel from '../components/bioPanel';
-import AnimePanelContainer from './animePanelContainer';
+import ChatShowContainer from './chatShowContainer';
 
-class ProfileContainer extends Component {
+
+class ChatContainer extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
   }
 
   render() {
@@ -17,11 +15,11 @@ class ProfileContainer extends Component {
           <BioPanel/>
         </div>
         <div className="columns small-12 medium-9">
-          <AnimePanelContainer/>
+          <ChatShowContainer/>
         </div>
       </div>
     );
   }
 }
 
-export default ProfileContainer;
+export default ChatContainer;

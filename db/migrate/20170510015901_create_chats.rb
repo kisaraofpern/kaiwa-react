@@ -11,6 +11,5 @@ class CreateChats < ActiveRecord::Migration[5.0]
     add_foreign_key :chats, :users, column: :chat_partner_id
     add_foreign_key :chats, :users, column: :chat_starter_id
     add_index :chats, [:user_id, :chat_partner_id], unique: true
-    end
   end
 end
