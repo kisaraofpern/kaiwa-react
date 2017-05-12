@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import SearchBar from './SearchBar';
 
 class NavBarRight extends Component {
