@@ -70,8 +70,6 @@ class UserPanel extends Component {
         message: ""
       });
     });
-
-    // this.setState message => ""
   }
 
   handleChatButton(chatPartnerId) {
@@ -92,11 +90,9 @@ class UserPanel extends Component {
     .then(responseData => {
       this.setState({
         chatObject: responseData.chat,
-        messages: responseData.messages
+        messages: responseData.messages,
+        isModalOpen: true
       });
-    })
-    .then( () =>  {
-      this.openModal();
     });
   }
 
@@ -108,7 +104,7 @@ class UserPanel extends Component {
     let created_at = new Date(this.props.matched_user.created_at);
     let full_date = this.formatDate(created_at);
 
-    let userPanelFragment =
+    let userPanelFragment = (
       <div className="row">
         <div className="user-panel">
           <div className="columns small-3 user-panel-content">
@@ -143,6 +139,7 @@ class UserPanel extends Component {
         </div>
         <br />
       </div>
+    )
 
     return (
       <div>
