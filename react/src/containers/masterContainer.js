@@ -13,10 +13,11 @@ class MasterContainer extends Component {
     this.onSearchQuery = this.onSearchQuery.bind(this);
     this.handleSearchButton = this.handleSearchButton.bind(this);
     this.getSearchResults = this.getSearchResults.bind(this);
+    this.emptySearchBar = this.emptySearchBar.bind(this);
   }
 
   componentDidMount() {
-    let currentLocation = this.props.location.pathname;
+    let currentLocation = window.location.pathname;
     if (currentLocation === "/") {
       this.fillGallery();
     }
@@ -69,18 +70,23 @@ class MasterContainer extends Component {
       let firstSlice = searchBar.className.slice(0, index-1);
       let lastSlice = searchBar.className.slice(index+13, -1);
       searchBar.className = firstSlice + lastSlice;
-      this.setState({ query: "" });
+      this.emptySearchBar();
       this.fillGallery();
     } else {
       searchBar.className += " expand-search";
     }
   }
 
+  emptySearchBar() {
+    this.setState({ query: "" });
+  }
+
   render() {
     let childrenWithProps = React.cloneElement(
       this.props.children,
       {
-        filtered_data: this.state.filtered_data
+        filtered_data: this.state.filtered_data,
+        emptySearchBar: this.emptySearchBar
       });
 
     return(

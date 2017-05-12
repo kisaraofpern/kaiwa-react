@@ -10,4 +10,4 @@ test:
 
 production:
   <<: redis
-  url: <%= ENV["REDIS_URL"] %>
+  url: <%= ENV["REDISTOGO_URL"] %>

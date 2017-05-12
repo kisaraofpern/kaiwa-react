@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :userapi, only: [:index]
       resources :chatapi, only: [:create]
       resources :messagesapi, only: [:create]
+      resources :matchesapi, only: [:create]
     end
   end
 end

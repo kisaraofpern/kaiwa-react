@@ -8,6 +8,36 @@ class ProfileContainer extends Component {
   }
 
   componentDidMount() {
+    let searchBar = document.getElementById("search-field");
+    if (searchBar.className.includes("expand-search")) {
+      let index = searchBar.className.indexOf("expand-search");
+      let firstSlice = searchBar.className.slice(0, index-1);
+      let lastSlice = searchBar.className.slice(index+13, -1);
+      searchBar.className = firstSlice + lastSlice;
+      this.props.emptySearchBar();
+      this.fillGallery();
+    } else {
+      searchBar.className += " expand-search";
+    }
+
+    fetch("/api/v1/userapi", { credentials: 'same-origin' })
+    .then(response => response.json())
+    .then(responseData => {
+      let currentUser = responseData;
+
+      let payload = JSON.stringify({
+        user_id: currentUser.id
+      });
+
+      fetch("/api/v1/matchesapi.json", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json",
+                   "Accept": "application/json"},
+        body:payload
+      });
+
+    });
   }
 
   render() {

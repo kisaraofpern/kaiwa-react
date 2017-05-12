@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
-import { broswerHistory, Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 
 class SearchBar extends Component {
   constructor (props) {
     super(props);
+
+    this.handleEnterInput = this.handleEnterInput.bind(this);
   }
+
+  handleEnterInput(event) {
+    let keynum;
+
+    if(event.keyCode === 0) {
+      keynum = event.which;
+    } else {
+      keynum = event.keyCode;
+    }
+
+    let currentLocation = window.location.pathname;
+    if (currentLocation === "/") {
+      return false;
+    } else {
+      browserHistory.push('/');
+    }
+  }
+
   render() {
     return(
       <div className="input-group input-group-rounded">
@@ -16,6 +36,7 @@ class SearchBar extends Component {
               id="search-field"
               name="search"
               type="text"
+              onKeyPress={this.handleEnterInput}
               onChange={this.props.onChange}
               value={this.props.query} placeholder= 'title'
             />
