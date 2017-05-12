@@ -49,17 +49,15 @@ class User < ApplicationRecord
 
     final_match_quotient = 0
 
+    if !((common_to_watch + common_loved_it + common_meh + common_hated_it) == 0) && !(all_anime_list.size == 0)
 
-    if !(common_to_watch + common_loved_it + common_meh + common_hated_it) == 0
       match_quotient = (0.1 * common_to_watch.to_f +
                         0.4 * common_loved_it.to_f +
                         0.1 * common_meh.to_f +
                         0.4 * common_hated_it.to_f
                         )/(common_to_watch+common_loved_it+common_meh+common_hated_it)
 
-      titles_in_common =  (all_anime_list - friend_all_anime_list).size > (friend_all_anime_list - all_anime_list).size ?
-                          (all_anime_list - friend_all_anime_list).size :
-                          (friend_all_anime_list - all_anime_list).size
+      titles_in_common = (friend_all_anime_list & all_anime_list).size
 
       unique_titles = (all_anime_list.size + friend_all_anime_list.size - titles_in_common)
 
