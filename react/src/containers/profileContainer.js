@@ -19,6 +19,25 @@ class ProfileContainer extends Component {
     } else {
       searchBar.className += " expand-search";
     }
+
+    fetch("/api/v1/userapi", { credentials: 'same-origin' })
+    .then(response => response.json())
+    .then(responseData => {
+      let currentUser = responseData;
+
+      let payload = JSON.stringify({
+        user_id: currentUser.id
+      });
+
+      fetch("/api/v1/matchesapi.json", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json",
+                   "Accept": "application/json"},
+        body:payload
+      });
+
+    });
   }
 
   render() {
