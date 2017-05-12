@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UserPanel from './UserPanel';
+import UserPanel from './userPanel';
 
 class UserTab extends Component {
   constructor(props) {
