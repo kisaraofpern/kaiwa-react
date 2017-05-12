@@ -8,7 +8,7 @@ class AnimePanelContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { tabIndex: 0 }
+    this.state = { tabIndex: 0 };
   }
 
   render() {
