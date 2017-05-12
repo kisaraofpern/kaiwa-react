@@ -30,8 +30,9 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
 
   config.assets.debug = true
-
   config.assets.quiet = true
+
+  config.action_cable_url = "ws://localhost:3000/cable"
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end

@@ -7,11 +7,16 @@ import FontAwesome from 'react-fontawesome';
 class AnimePanelContainer extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { tabIndex: 0 }
   }
 
   render() {
     return (
-      <Tabs>
+      <Tabs
+        selectedIndex = {this.state.tabIndex}
+        onSelect = {tabIndex => this.setState({ tabIndex })}
+      >
         <TabList>
           <Tab className='tab allTitles'>
             All Anime

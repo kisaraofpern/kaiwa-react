@@ -1,33 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome';
-
-const customStyles = {
-  overlay : {
-    position          : 'fixed',
-    top               : 120,
-    left              : 120,
-    right             : 120,
-    bottom            : 120,
-    borderRadius      : '10px',
-    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
-  },
-  content : {
-    position                   : 'absolute',
-    top                        : '0',
-    left                       : '0',
-    right                      : '0',
-    bottom                     : '0',
-    border                     : '1px solid #ccc',
-    background                 : '#fff',
-    overflow                   : 'auto',
-    WebkitOverflowScrolling    : 'touch',
-    borderRadius               : '10px',
-    outline                    : 'none',
-    padding                    : '20px'
-
-  }
-};
+import customStyles from '../constants/tileModalStyle';
 
 class AnimeTile extends Component {
   constructor(props) {
@@ -301,11 +275,11 @@ class AnimeTile extends Component {
       <div className="column column-block">
         {animeTilePictureFragment}
         {animeTileTagsFragment}
-        <Modal
+        <Modal className="animeModal"
           isOpen={this.state.isModalOpen}
           onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Example Modal"
+          contentLabel="Anime Modal"
         >
           {animeModalTagsFragment}
           {animeModalContentsFragment}
