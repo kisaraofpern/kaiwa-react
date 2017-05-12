@@ -47,20 +47,27 @@ class User < ApplicationRecord
                       (hated_it_list - friend_hated_it_list).size :
                       (friend_hated_it_list - hated_it_list).size
 
-    match_quotient = (0.1 * common_to_watch.to_f +
-                      0.4 * common_loved_it.to_f +
-                      0.1 * common_meh.to_f +
-                      0.4 * common_hated_it.to_f
-                     )/(common_to_watch+common_loved_it+common_meh+common_hated_it)
+    final_match_quotient = 0
 
-    titles_in_common =  (all_anime_list - friend_all_anime_list).size > (friend_all_anime_list - all_anime_list).size ?
-                        (all_anime_list - friend_all_anime_list).size :
-                        (friend_all_anime_list - all_anime_list).size
 
-    unique_titles = (all_anime_list.size + friend_all_anime_list.size - titles_in_common)
+    if !(common_to_watch + common_loved_it + common_meh + common_hated_it) == 0
+      match_quotient = (0.1 * common_to_watch.to_f +
+                        0.4 * common_loved_it.to_f +
+                        0.1 * common_meh.to_f +
+                        0.4 * common_hated_it.to_f
+                        )/(common_to_watch+common_loved_it+common_meh+common_hated_it)
 
-    viewing_multiplier = titles_in_common.to_f / unique_titles.to_f
+      titles_in_common =  (all_anime_list - friend_all_anime_list).size > (friend_all_anime_list - all_anime_list).size ?
+                          (all_anime_list - friend_all_anime_list).size :
+                          (friend_all_anime_list - all_anime_list).size
 
-    final_match_quotient = (match_quotient * viewing_multiplier * 100).to_i
+      unique_titles = (all_anime_list.size + friend_all_anime_list.size - titles_in_common)
+
+      viewing_multiplier = titles_in_common.to_f / unique_titles.to_f
+
+      final_match_quotient = (match_quotient * viewing_multiplier * 100).to_i
+    end
+
+    return final_match_quotient
   end
 end
