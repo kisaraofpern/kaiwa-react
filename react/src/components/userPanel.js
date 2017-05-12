@@ -108,11 +108,11 @@ class UserPanel extends Component {
       <div className="row">
         <div className="user-panel">
           <div className="columns small-3 user-panel-content">
-            <img className="anime-panel-img" src={this.props.matched_user.avatar} />
+            <img className="user-panel-img" src={this.props.matched_user.avatar.thumb.url} />
           </div>
 
           <div className="columns small-5 user-panel-content user-panel-scroll">
-            <p className="animeShowText">
+            <p className="user-show-text">
               <strong>Username: </strong>{this.props.matched_user.username}<br />
               <strong>Created At: </strong>{full_date}<br />
             </p>
