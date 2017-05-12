@@ -36,5 +36,4 @@ class Api::V1::MatchesapiController < Api::V1::BaseController
   def matches_params
     params.require(:matchesapi).permit(:user_id)
   end
-
 end
