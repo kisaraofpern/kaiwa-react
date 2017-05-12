@@ -31,29 +31,36 @@ class User < ApplicationRecord
     hated_it_list =
       Animetag.where("user_id = #{self.id} and tag_id=3").pluck(:anilist_id)
 
-    common_to_watch = to_watch_list.size - (to_watch_list - friend_to_watch_list).size
-    common_loved_it = loved_it_list.size - (loved_it_list - friend_loved_it_list).size
-    common_meh = meh_list.size - (meh_list - friend_meh_list).size
-    common_hated_it = hated_it_list.size - (hated_it_list - friend_hated_it_list).size
+    common_to_watch = (to_watch_list - friend_to_watch_list).size > (friend_to_watch_list - to_watch_list).size ?
+                      (to_watch_list - friend_to_watch_list).size :
+                      (friend_to_watch_list - to_watch_list).size
 
-    match_quotient = (0.1 * common_to_watch +
-                      0.4 * common_loved_it +
-                      0.1 * common_meh +
-                      0.4 * common_hated_it
+    common_loved_it = (loved_it_list - friend_loved_it_list).size > (friend_loved_it_list - loved_it_list).size ?
+                      (loved_it_list - friend_loved_it_list).size :
+                      (friend_loved_it_list - loved_it_list).size
+
+    common_meh = (meh_list - friend_meh_list).size > (friend_meh_list - meh_list).size ?
+                      (meh_list - friend_meh_list).size :
+                      (friend_meh_list - meh_list).size
+
+    common_hated_it = (hated_it_list - friend_hated_it_list).size > (friend_hated_it_list - hated_it_list).size ?
+                      (hated_it_list - friend_hated_it_list).size :
+                      (friend_hated_it_list - hated_it_list).size
+
+    match_quotient = (0.1 * common_to_watch.to_f +
+                      0.4 * common_loved_it.to_f +
+                      0.1 * common_meh.to_f +
+                      0.4 * common_hated_it.to_f
                      )/(common_to_watch+common_loved_it+common_meh+common_hated_it)
 
-    if !match_quotient.to_f.nan?
-      titles_in_common =  (all_anime_list - friend_all_anime_list) ?
-                          (all_anime_list - friend_all_anime_list).size :
-                          (friend_all_anime_list - all_anime_list).size
+    titles_in_common =  (all_anime_list - friend_all_anime_list).size > (friend_all_anime_list - all_anime_list).size ?
+                        (all_anime_list - friend_all_anime_list).size :
+                        (friend_all_anime_list - all_anime_list).size
 
-      unique_titles = (all_anime_list.size + friend_all_anime_list.size - titles_in_common)
+    unique_titles = (all_anime_list.size + friend_all_anime_list.size - titles_in_common)
 
-      viewing_multiplier = 1 - (titles_in_common.to_f / unique_titles.to_f)
+    viewing_multiplier = titles_in_common.to_f / unique_titles.to_f
 
-      final_match_quotient = (match_quotient * viewing_multiplier * 100).to_i
-    end
-    final_match_quotient
+    final_match_quotient = (match_quotient * viewing_multiplier * 100).to_i
   end
-  # handle_asynchronously :match_quotient_calculator
 end
