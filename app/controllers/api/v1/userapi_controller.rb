@@ -29,7 +29,7 @@ class Api::V1::UserapiController < Api::V1::BaseController
       all_anime = get_anime(all_anime_list)
       to_watch  = get_anime(to_watch_list)
       loved_it  = get_anime(loved_it_list)
-      meh      = get_anime(meh_list)
+      meh       = get_anime(meh_list)
       hated_it  = get_anime(hated_it_list)
 
       top_matches_list = @user.matches.order('match_quotient DESC').limit(10)
