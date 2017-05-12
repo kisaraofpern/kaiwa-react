@@ -35,8 +35,9 @@ class Messages extends Component {
       let halfMessageTime = rawMessageTime.toLocaleTimeString();
 
       let todaysDate = new Date();
-      let messageTime = rawMessageTime.setHours(0,0,0,0) == todaysDate.setHours(0,0,0,0) ?
-        halfMessageTime : fullMessageTime
+      let messageTime =
+        rawMessageTime.setHours(0,0,0,0) == todaysDate.setHours(0,0,0,0) ?
+        halfMessageTime : fullMessageTime;
 
       let displayName = message.user_id === this.props.user_id ?
         "You" : `${this.props.matched_username}`;
