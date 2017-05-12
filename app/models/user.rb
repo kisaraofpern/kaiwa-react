@@ -43,7 +43,6 @@ class User < ApplicationRecord
                      )/(common_to_watch+common_loved_it+common_meh+common_hated_it)
 
     if !match_quotient.to_f.nan?
-      binding.pry
       titles_in_common =  (all_anime_list - friend_all_anime_list) ?
                           (all_anime_list - friend_all_anime_list).size :
                           (friend_all_anime_list - all_anime_list).size
@@ -53,7 +52,6 @@ class User < ApplicationRecord
       viewing_multiplier = 1 - (titles_in_common.to_f / unique_titles.to_f)
 
       final_match_quotient = (match_quotient * viewing_multiplier * 100).to_i
-      binding.pry
     end
     final_match_quotient
   end
