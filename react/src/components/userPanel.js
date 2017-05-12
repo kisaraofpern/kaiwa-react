@@ -11,13 +11,13 @@ class UserPanel extends Component {
       chatObject: null,
       isModalOpen: false,
       messages: [],
-      message: null
+      message: ""
     };
     this.formatDate = this.formatDate.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleChatButton = this.handleChatButton.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.onMessageChange = this.onMessageChange.bind(this);
     this.handleMessageSubmit = this.handleMessageSubmit.bind(this);
   }
 
@@ -44,12 +44,34 @@ class UserPanel extends Component {
     this.setState({ isModalOpen: false });
   }
 
-  onChange() {
-    
+  onMessageChange(event) {
+    this.setState({ message: event.target.value });
   }
 
-  handleMessageSubmit() {
+  handleMessageSubmit(event) {
+    event.preventDefault();
+    let payload = JSON.stringify({
+      user_id: this.props.user_id,
+      chat_id: this.state.chatObject.id,
+      message: this.state.message
+    });
 
+    fetch("/api/v1/messagesapi.json", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json",
+                 "Accept"      : "application/json"},
+      body: payload
+    })
+    .then(response => response.json())
+    .then(responseData => {
+      this.setState({
+        messages: responseData.messages,
+        message: ""
+      });
+    });
+
+    // this.setState message => ""
   }
 
   handleChatButton(chatPartnerId) {
@@ -70,6 +92,7 @@ class UserPanel extends Component {
     .then(responseData => {
       this.setState({
         chatObject: responseData.chat,
+        messages: responseData.messages
       });
     })
     .then( () =>  {
@@ -131,8 +154,14 @@ class UserPanel extends Component {
           contentLabel="Chat Modal"
         >
           <ChatModal
+            user_id={this.props.user_id}
+            onMessageChange={this.onMessageChange}
+            handleMessageSubmit={this.handleMessageSubmit}
             matched_user={this.props.matched_user}
             closeModal={this.closeModal}
+            message={this.state.message}
+            messages={this.state.messages}
+            chatObject={this.state.chatObject}
           />
         </Modal>
       </div>

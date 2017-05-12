@@ -7,25 +7,39 @@ class Api::V1::ChatapiController < Api::V1::BaseController
     chat_starter_id = chat_params["chat_starter_id"]
 
     existingChat = Chat.where([
-      "user_id = ? and chat_partner_id = ? and chat_starter_id = ?",
+      "user_id = ? and chat_partner_id = ?",
       user_id,
-      chat_partner_id,
-      chat_starter_id
+      chat_partner_id
       ])
 
-    if existingChat.size === 0
+    returnedChat = nil
+
+    if existingChat.size == 0
       newChat = Chat.create(
         user_id: user_id,
         chat_partner_id: chat_partner_id,
         chat_starter_id: chat_starter_id
       )
 
-      existingChat = newChat
+      returnedChat = newChat;
     else
       existingChat = existingChat[0]
+
+      inverseChat = Chat.where([
+        "user_id = ? and chat_partner_id = ?",
+        chat_partner_id,
+        user_id
+        ])[0]
+
+      returnedChat = existingChat.user_id == existingChat.chat_starter_id ?
+        existingChat : inverseChat
     end
 
-    render :json => {chat: existingChat}
+    render :json => {
+      chat: returnedChat,
+      messages: returnedChat.messages
+    }
+
   end
 
   private

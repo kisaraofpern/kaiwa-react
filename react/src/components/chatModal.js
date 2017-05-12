@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import FontAwesome from 'react-fontawesome';
 import { StickyContainer, Sticky } from 'react-sticky';
 import MessagesForm from './messagesForm';
+import Messages from './messages';
 
 class ChatModal extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class ChatModal extends Component {
           ( {distanceFromBottom=0} ) => {
             return (
               <MessagesForm
-                onChange={this.props.onChange}
+                onMessageChange={this.props.onMessageChange}
                 message={this.props.message}
                 handleMessageSubmit={this.props.handleMessageSubmit}
               />
@@ -55,21 +56,12 @@ class ChatModal extends Component {
           {chatHeaderFragment}
           <div className="chatModalMessages">
             <div className="chatModalMessagesContent">
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
-              I am the content for a modal.<br/>
+              <Messages
+                user_id={this.props.user_id}
+                matched_username={this.props.matched_user.username}
+                messages={this.props.messages}
+                chatObject={this.props.chatObject}
+              />
             </div>
           </div>
           {chatFooterFragment}

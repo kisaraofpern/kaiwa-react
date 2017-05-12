@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+
   root 'home#index'
 
   devise_for :users, :controllers => { :registrations => :registrations }
@@ -19,6 +21,7 @@ Rails.application.routes.draw do
       resources :animetagsapi, only: [:index, :create]
       resources :userapi, only: [:index]
       resources :chatapi, only: [:create]
+      resources :messagesapi, only: [:create]
     end
   end
 end

@@ -16,7 +16,7 @@ class MessagesForm extends Component {
               id="message-field"
               name="message"
               type="text"
-              onChange={this.props.onChange}
+              onChange={this.props.onMessageChange}
               value={this.props.message} placeholder= 'your message'
             />
             <div className="input-group-button">
