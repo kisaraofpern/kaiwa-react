@@ -14,12 +14,12 @@ http://anikai.herokuapp.com/
 
 <p>Run the following commands to get started.</p>
 
-<p>Terminal window #1:</p>
-`$ brew install redis`
-`$ redis-server`
-
-<p>Terminal window #2:</p>
-`$ npm start`
-
-<p>Terminal window #3:</p>
+Terminal window #1: </br>
+`$ brew install redis` </br>
+`$ redis-server` </br>
+</br>
+Terminal window #2: </br>
+`$ npm start` </br>
+</br>
+Terminal window #3: </br>
 `$ rails s`
